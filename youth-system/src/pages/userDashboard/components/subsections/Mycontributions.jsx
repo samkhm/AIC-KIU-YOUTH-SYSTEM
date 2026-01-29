@@ -25,37 +25,44 @@ export default function Mycontributions({ contributions = [], projectId }) {
 
   return (
     <>
-      <div className="overflow-x-auto overflow-y-auto max-h-64 mt-2 border border-gray-300 rounded-lg">
-        <table className="min-w-full border-collapse">
-          <thead className="bg-gray-100 sticky top-0 z-10">
-            <tr>
-              <th className="px-4 py-2 border-b">No.</th>
-              <th className="px-4 py-2 border-b">Date</th>
-              <th className="px-4 py-2 border-b">Amount</th>
-              <th className="px-4 py-2 border-b">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {projectContributions.map((c, index) => (
-              <tr key={c._id || index} className="text-center">
-                <td className="px-2 py-1 border-b text-sm">{index + 1}</td>
-                <td className="px-2 py-1 border-b text-sm">
-                  {c.createdAt
-                    ? new Date(c.createdAt).toLocaleDateString('en-GB')
-                    : '-'}
-                </td>
-                <td className="px-2 py-1 border-b text-sm">{c.amount}</td>
-                <td className={`px-2 py-1 border-b text-sm font-semibold ${statusColors[c.status] || 'text-gray-500'
-                  }`}>{c.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="flex justify-between items-center p-2 border-b">
-        <label className="font-semibold">Total:</label>
-        <span className="text-green-600 font-bold">{totalAmount} KES</span>
-      </div>
+<div className="w-full overflow-x-auto max-h-64 mt-2 border border-gray-300 rounded-lg">
+  <table className="min-w-full table-auto border-collapse">
+    <thead className="bg-gray-100 sticky top-0 z-10">
+      <tr>
+        <th className="px-4 py-2 border-b text-left">No.</th>
+        <th className="px-4 py-2 border-b text-left">Date</th>
+        <th className="px-4 py-2 border-b text-left">Amount</th>
+        <th className="px-4 py-2 border-b text-left">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {projectContributions.map((c, index) => (
+        <tr key={c._id || index} className="text-center">
+          <td className="px-2 py-1 border-b text-sm">{index + 1}</td>
+          <td className="px-2 py-1 border-b text-sm">
+            {c.createdAt
+              ? new Date(c.createdAt).toLocaleDateString('en-GB')
+              : '-'}
+          </td>
+          <td className="px-2 py-1 border-b text-sm">{c.amount}</td>
+          <td
+            className={`px-2 py-1 border-b text-sm font-semibold ${
+              statusColors[c.status] || 'text-gray-500'
+            }`}
+          >
+            {c.status}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<div className="flex justify-between items-center p-2 border-b">
+  <label className="font-semibold">Total:</label>
+  <span className="text-green-600 font-bold">{totalAmount} KES</span>
+</div>
+
 
     </>
 
