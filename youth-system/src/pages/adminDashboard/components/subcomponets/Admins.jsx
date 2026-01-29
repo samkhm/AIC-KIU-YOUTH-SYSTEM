@@ -105,7 +105,7 @@ export default function Admins({
     const normalizedPhone = normalizePhone(phone)
 
     if (!normalizedPhone) {
-      setError("Invalid phone number format")
+      setError("Invalid phone number format!")
       setErrorType("error")
       return
     }
