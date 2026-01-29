@@ -131,10 +131,14 @@ export default function RegisteredYouths({
 
 
   return (
-    <div className="w-full flex justify-center mt-4">
-      <div className="w-full overflow-x-auto border-l-4 border-blue-400 rounded pl-2 sm:pl-4 max-h-[60vh] overflow-y-auto">
-        <table className="min-w-full border-collapse text-sm text-gray-700">
-          <thead className="bg-gray-100 text-gray-600 font-semibold sticky top-0 z-10">
+
+    <div className="flex-1 p-2 rounded bg-gray-50 flex flex-col border md:border-r md:border-b overflow-auto max-w-sm">
+      <h4 className="text-md italic mb-2">Registered Youths</h4>
+
+      <div className="w-full overflow-auto max-h-64 border border-gray-300 rounded-lg">
+       <div className="inline-block min-w-max">
+      <table className="table-auto border-collapse text-sm text-gray-700">
+        <thead className="bg-gray-100 sticky top-0 z-10">
             <tr>
               <th className="px-3 py-2 text-center">No.</th>
               <th className="px-3 py-2 text-center">First Name</th>
@@ -300,6 +304,8 @@ export default function RegisteredYouths({
           </tbody>
         </table>
       </div>
-    </div>
+      </div>
+      </div>
+  
   )
 }
