@@ -92,12 +92,11 @@ export default function Admins({
   }
 
   return (
-<div className="flex-1 p-2 rounded bg-gray-50 flex flex-col border md:border-r md:border-b">
-  <h4 className="text-md italic mb-2">Admins</h4>
+    <div className="flex-1 p-2 rounded bg-gray-50 flex flex-col border md:border-r md:border-b overflow-auto max-w-sm">
+      <h4 className="text-md italic mb-2">Admins</h4>
 
-  {/* Scrollable wrapper for mobile/tablet, full table on desktop */}
-  <div className="w-full overflow-auto max-h-64 md:max-h-full md:overflow-visible border border-gray-300 rounded-lg">
-    <div className="inline-block min-w-full md:min-w-auto">
+      <div className="w-full overflow-auto max-h-64 border border-gray-300 rounded-lg">
+       <div className="inline-block min-w-max">
       <table className="table-auto border-collapse text-sm text-gray-700">
         <thead className="bg-gray-100 sticky top-0 z-10">
               <tr>

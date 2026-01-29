@@ -28,10 +28,11 @@ export default function FrequentUsers() {
     .slice(0, 10)
 
   return (
-    <div className="w-full flex justify-center mt-4">
-      <div className="overflow-x-auto overflow-y-auto max-h-64 mt-2 border border-gray-300 rounded-lg">
-        <table className="min-w-full border-collapse">
-          <thead className="bg-gray-100 sticky top-0 z-10">
+  
+    <div className="flex items-center justify-center overflow-auto max-h-64 border border-gray-300 rounded-lg">
+    <div className="inline-block min-w-max">
+   <table className="table-auto border-collapse text-sm text-gray-700">
+     <thead className="bg-gray-100 sticky top-0 z-10">
             <tr>
               <th className="px-3 py-2 text-center">No.</th>
               <th className="px-3 py-2 text-center">First Name</th>

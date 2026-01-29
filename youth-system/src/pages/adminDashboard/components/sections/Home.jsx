@@ -11,7 +11,7 @@ export default function Home({ allUsersCount, users }) {
       <div className='flex flex-row items-center flex-wrap gap-5 bg-blue-100 p-5 mt-5'>
         <div className='flex flex-1 flex-col items-center'>
           <h4 className='text-xl italic border-b w-fit'>Top 10 frequently system users</h4>
-          <div className='flex flex-1 w-full'>
+          <div className='flex items-center justify-center flex-1 w-full'>
             <FrequentUsers />
           </div>
         </div>
