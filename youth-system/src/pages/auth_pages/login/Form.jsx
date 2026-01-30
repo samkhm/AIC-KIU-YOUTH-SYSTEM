@@ -1,11 +1,15 @@
 import React from 'react'
 import Box from '@/pages/adminDashboard/components/subcomponets/Box'
+import { useState } from 'react'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 export default function Form({
   identifier, password,
   setIdentifier, setPassword,
   errors, setErrors, onSubmit, loading,
   message, setMessage, messageType
 }) {
+
+  const [showPass, setShowPass] = useState(false)
   return (
     <Box>
       <div className="w-full max-w-lg mx-auto px-2">
@@ -47,21 +51,33 @@ export default function Form({
           </div>
   
           {/* Password */}
-          <div>
-            <label className="text-sm font-medium">Password</label>
-            <input
-              type="password"
-              className="border rounded p-2 w-full text-sm"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value)
-                if (errors.password)
-                  setErrors((p) => ({ ...p, password: '' }))
-              }}
-            />
-            <p className="text-xs text-red-500">{errors.password}</p>
-          </div>
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-medium mb-1">Password</label>
+
+                <div className="relative w-full">
+                  <input
+                    type={showPass ? "text" : "password"}
+                    className="border rounded p-2 w-full text-sm pr-10" // add right padding for the button
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value)
+                      if (errors.password) setErrors((p) => ({ ...p, password: '' }))
+                    }}
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPass(!showPass)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPass ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+
+                <p className="text-xs text-red-500 mt-1">{errors.password}</p>
+              </div>
+
   
           {/* Footer */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">

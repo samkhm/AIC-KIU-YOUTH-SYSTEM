@@ -1,5 +1,7 @@
 import React from 'react'
 import Box from '@/pages/adminDashboard/components/subcomponets/Box'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { useState } from 'react'
 export default function Form({
   fname,
   lname,
@@ -26,6 +28,8 @@ export default function Form({
   setMessage,
   messageType
 }) {
+  const [showPass, setShowPass] = useState(false)
+  const [showPassC, setShowPassC] = useState(false)
   return (
     <Box>
       <div className="w-full max-w-lg mx-auto px-2">
@@ -117,10 +121,12 @@ export default function Form({
   
           {/* Passwords */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
+            
+            <div className="flex flex-col w-full">
               <label className="text-sm font-medium">Password</label>
+              <div className="relative w-full">                
               <input
-                type="password"
+                type={ showPass ? "text" : "password"}
                 className="border rounded p-2 w-full text-sm"
                 value={password}
                 onChange={(e) => {
@@ -128,14 +134,23 @@ export default function Form({
                   if (errors.password)
                     setErrors((p) => ({ ...p, password: '' }))
                 }}
-              />
+                />
+                 <button
+                    type="button"
+                    onClick={() => setShowPass(!showPass)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPass ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               <p className="text-xs text-red-500">{errors.password}</p>
             </div>
   
-            <div>
+            <div className="flex flex-col w-full">
               <label className="text-sm font-medium">Confirm</label>
+              <div className="relative w-full">                
               <input
-                type="password"
+                type={showPassC ? "text" : "password"}
                 className="border rounded p-2 w-full text-sm"
                 value={cpassword}
                 onChange={(e) => {
@@ -143,7 +158,15 @@ export default function Form({
                   if (errors.cpassword)
                     setErrors((p) => ({ ...p, cpassword: '' }))
                 }}
-              />
+                />
+                 <button
+                    type="button"
+                    onClick={() => setShowPassC(!showPassC)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassC ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               <p className="text-xs text-red-500">{errors.cpassword}</p>
             </div>
           </div>
