@@ -1,6 +1,9 @@
 import API from '@/service/api'
 import React, { useEffect, useMemo, useState } from 'react'
-import './finance.css'
+import { FaDownload } from 'react-icons/fa'
+import jsPDF from 'jspdf'
+import autoTable from "jspdf-autotable"
+
 
 export default function Finance() {
   const [payments, setPayments] = useState([])
@@ -10,7 +13,6 @@ export default function Finance() {
   const [loading, setLoading] = useState(false)
 
   /* ================= FETCH DATA ================= */
-
   const fetchPayments = async () => {
     setLoading(true)
     try {
@@ -48,26 +50,18 @@ export default function Finance() {
   }, [])
 
   /* ================= DERIVED DATA ================= */
-
-  // Payments for selected project
   const projectPayments = useMemo(() => {
     if (!selectedProjectId) return []
     return payments.filter(p => p.projectId === selectedProjectId)
   }, [payments, selectedProjectId])
 
-  // Table 1: User totals (ONLY completed)
   const userTotals = useMemo(() => {
     const totalsMap = {}
-
     projectPayments.forEach(p => {
       if (p.status !== 'completed') return
-
-      if (!totalsMap[p.userId]) {
-        totalsMap[p.userId] = 0
-      }
+      if (!totalsMap[p.userId]) totalsMap[p.userId] = 0
       totalsMap[p.userId] += p.amount
     })
-
     return Object.entries(totalsMap).map(([userId, total]) => {
       const user = users.find(u => u._id === userId)
       return {
@@ -82,19 +76,91 @@ export default function Finance() {
   const selectedProject = projects.find(p => p._id === selectedProjectId)
 
   /* ================= PRINT ================= */
-
   const printSection = (id) => {
-    const content = document.getElementById(id).innerHTML
-    const original = document.body.innerHTML
-
-    document.body.innerHTML = content
-    window.print()
-    document.body.innerHTML = original
-    window.location.reload()
+    const element = document.getElementById(id)
+    if (!element) return
+  
+    const printWindow = window.open('', '_blank')
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print</title>
+          <style>
+            /* optional: add your table styles */
+            table { border-collapse: collapse; width: 100%; }
+            th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+          </style>
+        </head>
+        <body>
+          ${element.innerHTML}
+        </body>
+      </html>
+    `)
+    printWindow.document.close()
+    printWindow.focus()
+    printWindow.print()
+    // no reload here
+    printWindow.close()
   }
+  
+
+  /* ================= DOWNLOAD PDF (jsPDF + autoTable) ================= */
+  const downloadPDF = (type) => {
+    const doc = new jsPDF()
+    doc.setFontSize(12)
+  
+    doc.text(
+      type === 'summary' ? 'Project Contributions Summary' : 'Project Transactions',
+      14,
+      20
+    )
+    doc.text(`Project: ${selectedProject?.title || ''}`, 14, 28)
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 14, 36)
+  
+    if (type === 'summary') {
+      const tableData = userTotals.map((u, index) => [
+        index + 1,
+        u.fname,
+        u.lname,
+        u.total
+      ])
+  
+      autoTable(doc, {
+        startY: 44,
+        head: [['No.', 'First Name', 'Last Name', 'Total Contributed']],
+        body: tableData
+      })
+  
+      doc.save('finance_summary.pdf')
+    } else if (type === 'transactions') {
+      const tableData = projectPayments.map((p, index) => {
+        const user = users.find(u => u._id === p.userId)
+        return [
+          index + 1,
+          user?.fname || 'Unknown',
+          user?.lname || '',
+          p.amount,
+          new Date(p.createdAt).toLocaleDateString(),
+          p.transaction_id || '-',
+          p.status
+        ]
+      })
+  
+      autoTable(doc, {
+        startY: 44,
+        head: [
+          ['No.', 'First Name', 'Last Name', 'Amount', 'Date', 'Transaction ID', 'Status']
+        ],
+        body: tableData,
+        styles: { fontSize: 10 }
+      })
+  
+      doc.save('finance_transactions.pdf')
+    }
+  }
+  
 
   /* ================= UI ================= */
-
   return (
     <div className="border-l-2 rounded m-5 p-5 h-screen flex flex-col">
       {/* Header */}
@@ -126,86 +192,117 @@ export default function Finance() {
 
       {selectedProjectId && (
         <>
-          {/* ===== PRINT BUTTONS ===== */}
-          <div className="flex gap-3 mt-4 justify-center">
+          {/* ===== PRINT & DOWNLOAD BUTTONS ===== */}
+          <div className="flex gap-3 mt-4 justify-center flex-wrap">
+            {/* Print buttons → desktop/tablet */}
             <button
               onClick={() => printSection('print-summary')}
-              className="bg-green-600 text-white px-4 py-2 rounded"
+              className="bg-green-600 text-white px-4 py-2 rounded hidden md:inline-block"
             >
               Print Summary
             </button>
 
             <button
               onClick={() => printSection('print-transactions')}
-              className="bg-blue-600 text-white px-4 py-2 rounded"
+              className="bg-blue-600 text-white px-4 py-2 rounded hidden md:inline-block"
             >
               Print Transactions
+            </button>
+
+            {/* Download PDF → mobile only */}
+            <button
+              onClick={() => downloadPDF('summary')}
+              className="bg-purple-600 text-white px-4 py-2 rounded md:hidden flex items-center gap-1"
+            >
+              <FaDownload /> Download Summary PDF
+            </button>
+
+            <button
+              onClick={() => downloadPDF('transactions')}
+              className="bg-purple-600 text-white px-4 py-2 rounded md:hidden flex items-center gap-1"
+            >
+              <FaDownload /> Download Transactions PDF
             </button>
           </div>
 
           {/* ===== TABLE 1: SUMMARY ===== */}
-          <div id="print-summary" className="print-section mt-6">
-            <h2 className="print-title">Project Contributions Summary</h2>
-            <p className="print-meta">
-              Project: {selectedProject?.title} | Date: {new Date().toLocaleDateString()}
-            </p>
+          <div
+            id="print-summary"
+            className="w-full mt-6 overflow-x-auto p-4 flex flex-col border-b-4"
+          >
+            <h2>Project Contributions Summary</h2>
+            <p>
+              Project: {selectedProject?.title} | Date:{' '}
+              {new Date().toLocaleDateString()}
+            </p>  
 
-            <div className="overflow-x-auto border rounded">
-              <table className="min-w-full">
-                <thead className="bg-gray-100">
+            <div className="w-full max-w-full min-w-0 flex mt-5">
+            <div className="w-full max-w-full max-h-64 overflow-x-auto overflow-y-auto flex items-center">        
+            <div className='max-w-full w-64'>            
+            <table className="w-full border-collapse mt-2 text-left">
+              <thead>
+                <tr>
+                  <th className="border px-3 py-2 text-center min-w-[20px]">No.</th>
+                  <th className="border px-3 py-2 text-center min-w-[120px]">First Name</th>
+                  <th className="border px-3 py-2 text-center min-w-[120px]">Last Name</th>
+                  <th className="border px-3 py-2 text-center min-w-[120px]">Total Contributed</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userTotals.length === 0 ? (
                   <tr>
-                    <th>No.</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Total Contributed</th>
+                    <td colSpan={4} className="text-center p-4">
+                      No completed contributions
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {userTotals.length === 0 ? (
-                    <tr>
-                      <td colSpan={4} className="text-center py-4">
-                        No completed contributions
-                      </td>
+                ) : (
+                  userTotals.map((u, index) => (
+                    <tr key={u.userId}>
+                      <td className="border p-2 text-center">{index + 1}</td>
+                      <td className="border p-2 text-center">{u.fname}</td>
+                      <td className="border p-2 text-center">{u.lname}</td>
+                      <td className="border p-2 text-center">{u.total}</td>
                     </tr>
-                  ) : (
-                    userTotals.map((u, index) => (
-                      <tr key={u.userId} className="text-center">
-                        <td>{index + 1}</td>
-                        <td>{u.fname}</td>
-                        <td>{u.lname}</td>
-                        <td className="font-medium">{u.total}</td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+                  ))
+                )}
+              </tbody>
+            </table>
             </div>
+            </div>
+            </div>
+
           </div>
 
           {/* ===== TABLE 2: TRANSACTIONS ===== */}
-          <div id="print-transactions" className="print-section mt-8">
-            <h2 className="print-title">Project Transactions</h2>
-            <p className="print-meta">
-              Project: {selectedProject?.title} | Date: {new Date().toLocaleDateString()}
+          <div
+            id="print-transactions"
+            className="w-full mt-8 overflow-x-auto p-4 flex flex-col"
+          >
+            <h2>Project Transactions</h2>
+            <p>
+              Project: {selectedProject?.title} | Date:{' '}
+              {new Date().toLocaleDateString()}
             </p>
-
-            <div className="overflow-x-auto border rounded">
-              <table className="min-w-full">
-                <thead className="bg-gray-100">
+      
+            <div className="w-full max-w-full min-w-0 flex mt-5">
+            <div className="w-full max-w-full max-h-64 overflow-x-auto overflow-y-auto">
+            <div className='max-w-full w-64'>
+              <table className="w-full border-collapse mt-2 text-left">
+                <thead>
                   <tr>
-                    <th>No.</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Transaction ID</th>
-                    <th>Status</th>
+                    <th className="border px-3 py-2 text-center min-w-[40px]">No.</th>
+                    <th className="border px-3 py-2 text-center min-w-[120px]">First Name</th>
+                    <th className="border px-3 py-2 text-center min-w-[120px]">Last Name</th>
+                    <th className="border px-3 py-2 text-center min-w-[120px]">Amount</th>
+                    <th className="border px-3 py-2 text-center min-w-[120px]">Date</th>
+                    <th className="border px-3 py-2 text-center min-w-[140px]">Transaction ID</th>
+                    <th className="border px-3 py-2 text-center min-w-[120px]">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {projectPayments.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="text-center py-4">
+                      <td colSpan={7} className="text-center p-4">
                         No transactions
                       </td>
                     </tr>
@@ -213,22 +310,14 @@ export default function Finance() {
                     projectPayments.map((p, index) => {
                       const user = users.find(u => u._id === p.userId)
                       return (
-                        <tr key={p._id} className="text-center">
-                          <td>{index + 1}</td>
-                          <td>{user?.fname || 'Unknown'}</td>
-                          <td>{user?.lname || ''}</td>
-                          <td>{p.amount}</td>
-                          <td>{new Date(p.createdAt).toLocaleDateString()}</td>
-                          <td>{p.transaction_id || '-'}</td>
-                          <td
-                            className={`font-medium ${
-                              p.status === 'completed'
-                                ? 'text-green-600'
-                                : 'text-orange-500'
-                            }`}
-                          >
-                            {p.status}
-                          </td>
+                        <tr key={p._id}>
+                          <td className="border p-2 text-center">{index + 1}</td>
+                          <td className="border p-2 text-center">{user?.fname || 'Unknown'}</td>
+                          <td className="border p-2 text-center">{user?.lname || ''}</td>
+                          <td className="border p-2 text-center">{p.amount}</td>
+                          <td className="border p-2 text-center">{new Date(p.createdAt).toLocaleDateString()}</td>
+                          <td className="border p-2 text-center">{p.transaction_id || '-'}</td>
+                          <td className="border p-2 text-center">{p.status}</td>
                         </tr>
                       )
                     })
@@ -236,6 +325,9 @@ export default function Finance() {
                 </tbody>
               </table>
             </div>
+          </div>
+          </div>
+
           </div>
         </>
       )}

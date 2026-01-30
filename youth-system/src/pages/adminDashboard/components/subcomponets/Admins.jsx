@@ -95,11 +95,10 @@ export default function Admins({
 <div className="flex flex-col flex-1 w-full min-w-0 max-w-full">
   <h4 className="text-md italic mb-2">Admins</h4>
 
-  <div className="w-full max-w-full rounded-lg min-w-0">
-    <div className="w-full max-w-full max-h-64 overflow-x-auto overflow-y-auto ">
+  <div className="w-full max-w-full min-w-0 flex">
+    <div className="w-full max-w-full max-h-64 overflow-x-auto overflow-y-auto">
       <div className="max-w-full w-64">
-       <div className="inline-block min-w-max">
-          <table className="text-sm text-gray-700">
+      <table className="text-sm text-gray-700">
         <thead className="bg-gray-100 sticky top-0 z-10">
               <tr>
                 <th className="px-2 sm:px-3 py-2 text-center min-w-[40px]">No.</th>
@@ -203,6 +202,6 @@ export default function Admins({
       </div>
     </div>
     </div>
-    </div>
+    
   )
 }
