@@ -88,7 +88,7 @@ export default function Announcements() {
         </div>
       </div>
 
-      <div className='flex flex-1 flex-wrap items-start bg-gray-200 justify-center
+      <div className=' flex flex-wrap items-start bg-gray-200 justify-center
         p-5 gap-5 overflow-y-auto scrollbar-thin
         scrollbar-thumb-gray-400 scrollbar-track-gray-200'>
 

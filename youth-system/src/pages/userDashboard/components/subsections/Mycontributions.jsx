@@ -25,8 +25,10 @@ export default function Mycontributions({ contributions = [], projectId }) {
 
   return (
     <>
-<div className="w-full overflow-x-auto max-h-64 mt-2 border border-gray-300 rounded-lg">
-  <table className="min-w-full table-auto border-collapse">
+  <div className="w-full max-w-full min-w-0 flex">
+    <div className="w-full max-w-full max-h-64 overflow-x-auto overflow-y-auto flex items-center justify-center">
+      <div className="max-w-full w-64">
+      <table className="text-sm text-gray-700">
     <thead className="bg-gray-100 sticky top-0 z-10">
       <tr>
         <th className="px-4 py-2 border-b text-left">No.</th>
@@ -56,6 +58,8 @@ export default function Mycontributions({ contributions = [], projectId }) {
       ))}
     </tbody>
   </table>
+</div>
+</div>
 </div>
 
 <div className="flex justify-between items-center p-2 border-b">

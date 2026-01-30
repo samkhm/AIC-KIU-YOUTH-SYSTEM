@@ -40,7 +40,7 @@ export default function Events() {
         </div>
       </div>
 
-      <div className='flex-1 flex flex-row flex-wrap justify-center items-start bg-gray-200 p-5 gap-5 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200'>
+      <div className=' flex flex-row flex-wrap justify-center items-start bg-gray-200 p-5 gap-5 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200'>
         {
           loadEvents ? (
             <div>Loading Events...</div>

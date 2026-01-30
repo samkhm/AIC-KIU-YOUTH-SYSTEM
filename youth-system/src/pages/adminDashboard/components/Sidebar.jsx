@@ -8,7 +8,8 @@ import {
   IoDocumentTextOutline,
   IoCashOutline,
   IoImageOutline,
-  IoPerson
+  IoPerson,
+  IoMenu
 } from "react-icons/io5"
 
 export default function Sidebar({ activeSection, setActiveSection }) {
@@ -30,17 +31,18 @@ export default function Sidebar({ activeSection, setActiveSection }) {
     <>
       {/* Open Button (Mobile & Tablet) */}
       {!open && (
-        <FaArrowAltCircleRight
-          size={22}
+        <IoMenu
+        size={22}
           onClick={() => setOpen(true)}
-          className="fixed top-20 left-3 z-50 cursor-pointer lg:hidden"
-        />
+          className="fixed top-20 left-3 z-50 cursor-pointer lg:hidden border-2 border-blue-600 rounded"
+         />
+       
       )}
 
       {/* Sidebar */}
       <aside
         className={`
-          fixed left-0 h-full bg-blue-400 p-3 z-40
+          fixed left-0 max-h-full bg-blue-400 p-3 z-40
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0 lg:static lg:transform-none
@@ -48,10 +50,12 @@ export default function Sidebar({ activeSection, setActiveSection }) {
       >
         {/* Close Button (Mobile) */}
         <div className="flex justify-end mb-4 lg:hidden">
+          
           <FaArrowAltCircleLeft
             size={22}
             onClick={() => setOpen(false)}
             className="cursor-pointer"
+            
           />
         </div>
 

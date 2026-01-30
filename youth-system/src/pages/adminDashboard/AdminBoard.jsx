@@ -90,10 +90,10 @@ export default function adminBoard() {
 
 
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex flex-col min-h-screen max-w-screen'>
 
       <Navbar />
-      <div className='flex flex-row h-screen'>
+      <div className='flex flex-row flex-1 min-h-0'>
         <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
         <Main activeSection={activeSection} users={users} allUsersCount={allUsersCount}
           loadingUser={loadingUser} errorLoadingUser={errorLoadingUser} updateUser={updateUser} loadingUserUpdate={loadingUserUpdate}

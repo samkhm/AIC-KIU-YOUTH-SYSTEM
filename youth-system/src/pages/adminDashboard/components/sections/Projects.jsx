@@ -38,7 +38,7 @@ export default function Projects() {
       </div>
 
       {/* Scrollable project list */}
-      <div className="flex-1 flex flex-row flex-wrap justify-center items-start gap-5 p-5 bg-gray-200 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+      <div className=" flex flex-row flex-wrap justify-center items-start gap-5 p-5 bg-gray-200 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
         {/* Multiple Project components */}
         {
           loadPj ? (
