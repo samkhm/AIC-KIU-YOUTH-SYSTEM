@@ -95,6 +95,7 @@ export default function Profile() {
               type="text"
               className="w-full border rounded p-2 text-sm"
               value={profile.username}
+              readOnly
               onChange={(e) =>
                 setProfile({ ...profile, username: e.target.value })
               }

@@ -4,42 +4,65 @@ const jwt = require("jsonwebtoken");
 
 exports.registerUser = async (req, res) => {
 
+
+  const generateUniqueUsername = async (fname) => {
+    let username;
+    let exists = true;
+  
+    while (exists) {
+      const randomNum = Math.floor(1000 + Math.random() * 9000); // 4 digits
+      username = `${fname.toLowerCase()}${randomNum}`;
+      exists = await User.exists({ username });
+    }
+  
+    return username;
+  };
+  
+
   try {
+  const { fname, lname, email, phone, password } = req.body;
 
-    const { username, fname, lname, email, phone, password } = req.body;
+  // Validate unique email
+  if (await User.exists({ email })) {
+    return res.status(400).json({ message: "Email already exists" });
+  }
 
-    const usernameExists = await User.findOne({ username });
-    if (usernameExists) {
-      return res.status(400).json({ message: "Username already exists" });
-    }
+  // Validate unique phone
+  if (await User.exists({ phone })) {
+    return res.status(400).json({ message: "Phone number already exists" });
+  }
 
-    const EmailExists = await User.findOne({ email });
-    if (EmailExists) {
-      return res.status(400).json({ message: "Email already exists" });
-    }
+  // Generate username automatically
+  const username = await generateUniqueUsername(fname);
 
-    const phoneExists = await User.findOne({ phone });
-    if (phoneExists) {
-      return res.status(400).json({ message: "Phone number already exists" });
-    }
+  // Hash password
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ username, fname, email, lname, phone, password: hashedPassword });
+  // Create user
+  const user = await User.create({
+    username,
+    fname,
+    lname,
+    email,
+    phone,
+    password: hashedPassword
+  });
 
-    const token = jwt.sign({ id: user._id, role: user.role, fname: user.fname, email: user.email }, process.env.JWT_SECRET, { expiresIn: "24hr" });
+  // Generate token
+  const token = jwt.sign(
+    {
+      id: user._id,
+      role: user.role,
+      fname: user.fname,
+      email: user.email
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: "24h" }
+  );
 
-    await User.findByIdAndUpdate(
-      user._id,
-      {
+  res.json({ token, username });
 
-        $inc: { count: 1 } // increment count by 1
-      },
-      { new: true }
-    );
-
-    res.json({ token });
-
-  } catch (error) {
+} catch (error) {
     res.status(500).json({ message: "Internal server error!" });
   }
 }
