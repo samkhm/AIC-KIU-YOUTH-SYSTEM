@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { toast } from 'sonner'
 
 import { getFirstName } from '@/utils/auth'
+import BackgroundSlider from '../backgroundimages/BackgroundSlider'
 
 
 export default function Login() {
@@ -95,14 +96,15 @@ export default function Login() {
     <>
   <div className="relative min-h-screen w-full">
     {/* Background */}
-    <img
+    <BackgroundSlider className="absolute inset-0 w-full h-full object-cover" />
+    {/* <img
       src="https://images.pexels.com/photos/34071190/pexels-photo-34071190.jpeg"
       alt=""
       className="absolute inset-0 w-full h-full object-cover"
-    />
+    /> */}
 
     {/* Overlay */}
-    <div className="absolute inset-0 z-10 bg-gray-300/70 flex items-center justify-center px-4">
+    <div className="absolute inset-0 z-10 bg-blue-300/50 flex items-center justify-center px-4">
       <div className="flex flex-col gap-4 items-center w-full max-w-lg">
         
         {/* Header */}
