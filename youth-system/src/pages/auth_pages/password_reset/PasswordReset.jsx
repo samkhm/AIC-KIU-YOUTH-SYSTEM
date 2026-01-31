@@ -1,38 +1,41 @@
 import React from "react";
 import Footer from "@/components/Footer";
-import Form from "./Form";
-import { useState } from "react";
+import Form from "./PassForm";
 import API from "@/service/api";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 
-import { getFirstName } from "@/utils/auth";
 import BackgroundSlider from "../backgroundimages/BackgroundSlider";
 
-export default function Login({ switchToRegister }) {
-  const [identifier, setIdentifier] = useState("");
+export default function PasswordReset() {
   const [password, setPassword] = useState("");
+  const [cpassword, setCpassword] = useState("");
 
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
 
-  const navigate = useNavigate();
-
-  const handleLogin = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     setErrors({});
     setMessage("");
     setMessageType("");
 
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/;
+
     const values = {
-      identifier: identifier.trim(),
+     
+   
       password: password.trim(),
+      cpassword: cpassword.trim(),
     };
 
-    if (!values.identifier && !values.password) {
+    const allEmpty = Object.values(values).every((v) => !v);
+
+    if (allEmpty) {
       setMessage("All fields are required");
       setMessageType("error");
       return;
@@ -40,9 +43,9 @@ export default function Login({ switchToRegister }) {
 
     const newErrors = {};
 
-    if (!values.identifier)
-      newErrors.identifier = "Email or username is required";
-    if (!values.password) newErrors.passowrd = "Password is required";
+    if (!values.password) newErrors.password = "Password is required";
+    if (!values.cpassword)
+      newErrors.cpassword = "Confirmation password is required";
 
     if (Object.keys(newErrors).length) {
       setErrors(newErrors);
@@ -50,39 +53,39 @@ export default function Login({ switchToRegister }) {
       return;
     }
 
+    // Format validation
+
+
+    if (!passwordRegex.test(values.password))
+      newErrors.password = "Weak password";
+
+    if (values.password !== values.cpassword)
+      newErrors.cpassword = "Passwords do not match";
+
+    if (Object.keys(newErrors).length) {
+      setErrors(newErrors);
+      setMessageType("error");
+      return;
+    }
+
+    // Submit
     try {
       setLoading(true);
 
-      const res = await API.post("/auth/login", {
-        identifier: values.identifier,
+      const id = localStorage.getItem("userId")
+
+      const res = await API.put(`/auth/resetPassword/${id}`, {       
+      
         password: values.password,
       });
 
-      localStorage.setItem("token", res.data.token);
       
-      const firstName = getFirstName();
+      setMessage("Success. Redirecting to login...");
+      setMessageType("success");
 
-      const hour = new Date().getHours();
-
-      let timeOfDay = "";
-
-      if (hour < 12) {
-        timeOfDay = "Good morning";
-      } else if (hour < 18) {
-        timeOfDay = "Good afternoon";
-      } else {
-        timeOfDay = "Good evening";
-      }
-
-      toast.success(
-        `${timeOfDay} ${
-          firstName.charAt(0).toUpperCase() + firstName.slice(1)
-        }, it's my pleasure to have you here😊`
-      );
-
-      setTimeout(() => navigate("/dashboard"), 1000);
+      setTimeout(() => navigate("/login"), 4000);
     } catch (err) {
-      setMessage(err.response?.data?.message || "Login In failed");
+      setMessage(err.response?.data?.message || "Reset failed");
       setMessageType("error");
     } finally {
       setLoading(false);
@@ -92,39 +95,46 @@ export default function Login({ switchToRegister }) {
   return (
     <>
       <div className="relative min-h-screen w-full">
-        {/* Background */}
+        {/* Background image */}
         <BackgroundSlider className="absolute inset-0 w-full h-full object-cover" />
-        {/* <img
-      src="https://images.pexels.com/photos/34071190/pexels-photo-34071190.jpeg"
-      alt=""
-      className="absolute inset-0 w-full h-full object-cover"
-    /> */}
 
         {/* Overlay */}
         <div className="absolute inset-0 z-10 bg-blue-300/50 flex items-center justify-center px-4">
           <div className="flex flex-col gap-4 items-center w-full max-w-lg">
             {/* Header */}
             <div className="bg-white/60 p-4 rounded w-full text-center border-b-4 border-blue-500">
-              <h3 className="text-2xl font-semibold">Login</h3>
+              <h3 className="text-2xl font-semibold">Reset Password</h3>
               <span className="text-sm text-gray-700">
-                To get started with AIC Kiu Youth System
+                To login to AIC Kiu Youth System
               </span>
+
+              {message && (
+                <p
+                  className={`mt-2 text-sm ${
+                    messageType === "success"
+                      ? "text-green-600"
+                      : "text-red-600"
+                  }`}
+                >
+                  {message}
+                </p>
+              )}
             </div>
 
             {/* Form */}
             <Form
-              identifier={identifier}
-              password={password}
-              setIdentifier={setIdentifier}
+               password={password}
+              cpassword={cpassword}
               setPassword={setPassword}
+              setCpassword={setCpassword}
               message={message}
-              messageType={messageType}
               setMessage={setMessage}
+              messageType={messageType}
               errors={errors}
               setErrors={setErrors}
-              onSubmit={handleLogin}
+              onSubmit={handleSignUp}
               loading={loading}
-              switchToRegister={switchToRegister}
+             
             />
           </div>
         </div>

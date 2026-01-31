@@ -100,6 +100,9 @@ export default function Form({
               {loading ? 'Please wait...' : 'Log In'}
             </button>
           </div>
+          <p className='text-xs text-center sm:text-left'>
+            <a href="/cornfirm_password" className='text-blue-500 underline'>Reset password</a>
+          </p>
         </form>
       </div>
     </Box>

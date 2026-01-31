@@ -120,6 +120,69 @@ exports.getUsers = async (req, res) => {
   }
 }
 
+//reset of password, 1. confirm email
+
+exports.cornfirmIdentifier = async (req, res) => {  
+  try {
+    const { identifier } = req.body;
+
+    const userExist = await User.findOne({
+      $or: [
+        { username: identifier },
+        { email: identifier }
+      ]
+    });
+
+    if (!userExist){
+      res.status(404).json({ message : "User not found!"})
+    }
+
+    return res.status(200).json({ message : "Success", userId: userExist._id})
+    
+  } catch (error) {
+    res.status(500).json({ message: "Server error" })    
+  }
+}
+
+
+
+exports.resetPassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password } = req.body;
+
+    if (!password) {
+      return res.status(400).json({ message: "Password is required" });
+    }
+
+    const trimmedPassword = password.trim();
+
+    if (trimmedPassword.length < 6) {
+      return res.status(400).json({ message: "Password too short" });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(trimmedPassword, 10);
+
+    const user = await User.findByIdAndUpdate(
+      id,
+      { password: hashedPassword },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "Password reset successful" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
 exports.updateUserInfo = async (req, res) => {
   try {
     const { fname, lname, email, phone, role } = req.body

@@ -1,18 +1,13 @@
 import React from "react";
 import Footer from "@/components/Footer";
-import Form from "./Form";
+import Form from "./CornfirmEmailForm";
 import { useState } from "react";
 import API from "@/service/api";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-
-import { getFirstName } from "@/utils/auth";
 import BackgroundSlider from "../backgroundimages/BackgroundSlider";
 
-export default function Login({ switchToRegister }) {
+export default function CornfirmEmail() {
   const [identifier, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
@@ -29,10 +24,9 @@ export default function Login({ switchToRegister }) {
 
     const values = {
       identifier: identifier.trim(),
-      password: password.trim(),
     };
 
-    if (!values.identifier && !values.password) {
+    if (!values.identifier) {
       setMessage("All fields are required");
       setMessageType("error");
       return;
@@ -42,7 +36,6 @@ export default function Login({ switchToRegister }) {
 
     if (!values.identifier)
       newErrors.identifier = "Email or username is required";
-    if (!values.password) newErrors.passowrd = "Password is required";
 
     if (Object.keys(newErrors).length) {
       setErrors(newErrors);
@@ -53,36 +46,19 @@ export default function Login({ switchToRegister }) {
     try {
       setLoading(true);
 
-      const res = await API.post("/auth/login", {
+      const res = await API.post("/auth/cornfirmIdentifier", {
         identifier: values.identifier,
-        password: values.password,
       });
-
-      localStorage.setItem("token", res.data.token);
+     
+      localStorage.setItem("userId", res.data?.userId)
       
-      const firstName = getFirstName();
+      const msg = "Redirecting to reset...";
+      setMessage(msg);
+      setMessageType("success");
 
-      const hour = new Date().getHours();
-
-      let timeOfDay = "";
-
-      if (hour < 12) {
-        timeOfDay = "Good morning";
-      } else if (hour < 18) {
-        timeOfDay = "Good afternoon";
-      } else {
-        timeOfDay = "Good evening";
-      }
-
-      toast.success(
-        `${timeOfDay} ${
-          firstName.charAt(0).toUpperCase() + firstName.slice(1)
-        }, it's my pleasure to have you here😊`
-      );
-
-      setTimeout(() => navigate("/dashboard"), 1000);
+      setTimeout(() => navigate("/reset_password"), 4000);
     } catch (err) {
-      setMessage(err.response?.data?.message || "Login In failed");
+      setMessage(err.response?.data?.message);
       setMessageType("error");
     } finally {
       setLoading(false);
@@ -105,18 +81,16 @@ export default function Login({ switchToRegister }) {
           <div className="flex flex-col gap-4 items-center w-full max-w-lg">
             {/* Header */}
             <div className="bg-white/60 p-4 rounded w-full text-center border-b-4 border-blue-500">
-              <h3 className="text-2xl font-semibold">Login</h3>
+              <h3 className="text-2xl font-semibold">Cornfirm Email</h3>
               <span className="text-sm text-gray-700">
-                To get started with AIC Kiu Youth System
+                To reset your password
               </span>
             </div>
 
             {/* Form */}
             <Form
               identifier={identifier}
-              password={password}
               setIdentifier={setIdentifier}
-              setPassword={setPassword}
               message={message}
               messageType={messageType}
               setMessage={setMessage}
@@ -124,7 +98,6 @@ export default function Login({ switchToRegister }) {
               setErrors={setErrors}
               onSubmit={handleLogin}
               loading={loading}
-              switchToRegister={switchToRegister}
             />
           </div>
         </div>
