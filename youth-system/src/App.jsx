@@ -4,6 +4,7 @@ import Login from './pages/auth_pages/login/Login'
 import Signup from './pages/auth_pages/register/Signup'
 import RoleDashboard from './pages/RoleDashboard'
 import ProtectedRoutes from './utils/ProtectedRoutes'
+import Auth from './pages/auth_pages/Auth'
 import { Toaster } from 'sonner'
 
 export default function App() {
@@ -12,8 +13,8 @@ export default function App() {
     <Toaster richColors position='top-center' />
     <Routes>
       <Route path='/' element={<Navigate to='/dashboard'/>}/>
-      <Route path='/login' element={<Login/>} />
-      <Route path='/register' element={<Signup/>}/>
+      <Route path='/login' element={<Auth/>} />
+      <Route path='/register' element={<Navigate to="/auth" />}/>
       <Route 
         path='/dashboard'
         element={

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import BackgroundSlider from "../backgroundimages/BackgroundSlider";
 
-export default function Signup() {
+export default function Signup({ switchToLogin }) {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
@@ -129,7 +129,7 @@ export default function Signup() {
         <BackgroundSlider className="absolute inset-0 w-full h-full object-cover" />
 
         {/* Overlay */}
-        <div className="absolute inset-0 z-10 bg-gray-300/70 flex items-center justify-center px-4">
+        <div className="absolute inset-0 z-10 bg-blue-300/50 flex items-center justify-center px-4">
           <div className="flex flex-col gap-4 items-center w-full max-w-lg">
             {/* Header */}
             <div className="bg-white/60 p-4 rounded w-full text-center border-b-4 border-blue-500">
@@ -174,6 +174,7 @@ export default function Signup() {
               setErrors={setErrors}
               onSubmit={handleSignUp}
               loading={loading}
+              switchToLogin={switchToLogin}
             />
           </div>
         </div>

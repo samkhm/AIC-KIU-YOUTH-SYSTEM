@@ -6,7 +6,7 @@ export default function Form({
   identifier, password,
   setIdentifier, setPassword,
   errors, setErrors, onSubmit, loading,
-  message, setMessage, messageType
+  message, setMessage, messageType, switchToRegister
 }) {
 
   const [showPass, setShowPass] = useState(false)
@@ -83,12 +83,13 @@ export default function Form({
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
             <p className="text-xs text-center sm:text-left">
               Not yet registered?{' '}
-              <a
-                href="/register"
-                className="text-blue-500 underline font-medium"
-              >
-                Register
-              </a>
+              <button
+  type="button"
+  onClick={switchToRegister}
+  className="text-blue-500 underline font-medium"
+>
+  Register
+</button>
             </p>
   
             <button

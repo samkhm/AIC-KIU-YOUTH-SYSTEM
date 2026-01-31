@@ -27,6 +27,8 @@ export default function Form({
   message,
   setMessage,
   messageType,
+
+  switchToLogin
 }) {
   const [showPass, setShowPass] = useState(false);
   const [showPassC, setShowPassC] = useState(false);
@@ -156,9 +158,13 @@ export default function Form({
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
             <p className="text-xs text-center sm:text-left">
               Already have an account?{" "}
-              <a href="/login" className="text-blue-500 underline">
-                Login
-              </a>
+              <button
+  type="button"
+  onClick={switchToLogin}
+  className="text-blue-500 underline"
+>
+  Login
+</button>
             </p>
 
             <button
