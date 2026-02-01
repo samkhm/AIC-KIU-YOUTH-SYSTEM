@@ -3,7 +3,8 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import ProjectItem from '../subsections/ProjectItem'
-import Spinner from '@/components/Spinner'
+import { CircularProgress } from 'react-loader-spinner'
+
 
 
 export default function Projects() {
@@ -33,7 +34,11 @@ export default function Projects() {
       </h3>
 
       <div className="p-3 w-full flex gap-5 flex-wrap animate__animated animate__zoomIn animate__delay-2s">
-        {loading && <Spinner />}
+        {loading && 
+         <div className="w-full flex items-center justify-center">
+         <CircularProgress/>
+       </div>
+        }
 
         {!loading && projects.length === 0 && (
           <p>No projects. Check later</p>          

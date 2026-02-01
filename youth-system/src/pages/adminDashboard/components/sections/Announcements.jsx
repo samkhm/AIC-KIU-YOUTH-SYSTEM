@@ -1,81 +1,82 @@
-import React, { useState, useEffect } from 'react'
-import Announcement from '../subcomponets/Announcement'
-import NewsDialog from '../subcomponets/NewsDialog'
-import API from '@/service/api'
-import Spinner from '@/components/Spinner'
+import React, { useState, useEffect } from "react";
+import Announcement from "../subcomponets/Announcement";
+import NewsDialog from "../subcomponets/NewsDialog";
+import API from "@/service/api";
+import { CircularProgress } from "react-loader-spinner";
+
 
 export default function Announcements() {
-  const [news, setNews] = useState([])
-  const [loadingFetch, setLoadingFetch] = useState(false)
-  const [loadingCreate, setLoadingCreate] = useState(false)
-  const [message, setMessage] = useState("")
-  const [messageType, setMessageType] = useState("")
-  const [delLoader, setDelLoader] = useState(null)
+  const [news, setNews] = useState([]);
+  const [loadingFetch, setLoadingFetch] = useState(false);
+  const [loadingCreate, setLoadingCreate] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [delLoader, setDelLoader] = useState(null);
 
   const fetchNews = async () => {
-    setLoadingFetch(true)
+    setLoadingFetch(true);
     try {
-      const res = await API.get('/tasks/getAnnouncements')
-      setNews(res.data?.announcements)
+      const res = await API.get("/tasks/getAnnouncements");
+      setNews(res.data?.announcements);
     } catch (error) {
-      const msg = error.response?.data?.message || "Failed to load announcements"
-      setMessage(msg)
-      setMessageType("error")
+      const msg =
+        error.response?.data?.message || "Failed to load announcements";
+      setMessage(msg);
+      setMessageType("error");
     } finally {
-      setLoadingFetch(false)
+      setLoadingFetch(false);
     }
-  }
+  };
 
   const createNews = async (payload) => {
-    setLoadingCreate(true)
+    setLoadingCreate(true);
     try {
-      const res = await API.post('/tasks/createAnnouncement', payload)
+      const res = await API.post("/tasks/createAnnouncement", payload);
 
       // add new item without losing old ones
-      setNews(prev => [res.data.announcement, ...prev])
+      setNews((prev) => [res.data.announcement, ...prev]);
 
-      setMessage("Announcement created successfully")
-      setMessageType("success")
+      setMessage("Announcement created successfully");
+      setMessageType("success");
 
       setTimeout(() => {
-        setMessage("")
-        setMessageType("")
-      }, 3000)
-
+        setMessage("");
+        setMessageType("");
+      }, 3000);
     } catch (error) {
-      const msg = error.response?.data?.message || "Failed to create announcement"
-      setMessage(msg)
-      setMessageType("error")
+      const msg =
+        error.response?.data?.message || "Failed to create announcement";
+      setMessage(msg);
+      setMessageType("error");
     } finally {
-      setLoadingCreate(false)
+      setLoadingCreate(false);
     }
-  }
+  };
 
   const deleteNews = async (id) => {
-    if (!id) return
-    setDelLoader(id)
+    if (!id) return;
+    setDelLoader(id);
     try {
-      await API.delete(`/tasks/deleteAnnouncement/${id}`)
-      setNews(prev => prev.filter(n => n._id !== id))
-
+      await API.delete(`/tasks/deleteAnnouncement/${id}`);
+      setNews((prev) => prev.filter((n) => n._id !== id));
     } finally {
-      setDelLoader(null)
+      setDelLoader(null);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchNews()
-  }, [])
+    fetchNews();
+  }, []);
 
   return (
-    <div className='border-l-2 rounded p-5 m-5 min-h-screen flex flex-col animate__animated animate__zoomIn animate__delay-1s'>
-      <div className='flex items-center justify-between gap-5 border-b border-gray-200 p-3 sticky top-0 bg-white z-10'>
-        <h3 className='text-xl border-b-2 border-gray-400 p-2 rounded'>
+    <div className="border-l-2 rounded p-5 m-5 min-h-screen flex flex-col animate__animated animate__zoomIn animate__delay-1s">
+      <div className="flex items-center justify-between gap-5 border-b border-gray-200 p-3 sticky top-0 bg-white z-10">
+        <h3 className="text-xl border-b-2 border-gray-400 p-2 rounded">
           Announcements
         </h3>
 
-        <div className='absolute right-8'>
-          <button className='p-1'>
+        <div className="absolute right-8">
+          <button className="p-1">
             <NewsDialog
               createNews={createNews}
               setMessage={setMessage}
@@ -83,23 +84,25 @@ export default function Announcements() {
               setMessageType={setMessageType}
               messageType={messageType}
               loadingNews={loadingCreate}
-
             />
           </button>
         </div>
       </div>
 
-      <div className=' flex flex-wrap items-start bg-gray-200 justify-center
+      <div
+        className=" flex flex-wrap items-start bg-gray-200 justify-center
         p-5 gap-5 overflow-y-auto scrollbar-thin
         scrollbar-thumb-gray-400 scrollbar-track-gray-200 
-        animate__animated animate__zoomIn animate__delay-2s'>
-
+        animate__animated animate__zoomIn animate__delay-2s"
+      >
         {loadingFetch ? (
-          <Spinner/>
+          <div className="w-full flex items-center justify-center">
+          <CircularProgress/>
+        </div>
         ) : news.length === 0 ? (
           <div>No Announcements</div>
         ) : (
-          news.map(n => (
+          news.map((n) => (
             <Announcement
               key={n._id}
               news={n}
@@ -111,5 +114,5 @@ export default function Announcements() {
         )}
       </div>
     </div>
-  )
+  );
 }
