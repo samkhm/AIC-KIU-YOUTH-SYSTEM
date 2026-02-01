@@ -4,6 +4,7 @@ import ProjectDialog from '../subcomponets/ProjectDialog'
 import { useState } from 'react'
 import API from '@/service/api'
 import { useEffect } from 'react'
+import Spinner from '@/components/Spinner'
 
 export default function Projects() {
 
@@ -44,7 +45,7 @@ export default function Projects() {
         {/* Multiple Project components */}
         {
           loadPj ? (
-            <div>Loading projects...</div>
+            <Spinner/>
           ) : projects.length === 0 ? (
             <div>No projects saved</div>
           ) : (

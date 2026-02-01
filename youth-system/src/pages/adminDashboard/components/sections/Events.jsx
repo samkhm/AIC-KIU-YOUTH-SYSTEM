@@ -4,6 +4,7 @@ import { useState } from 'react'
 import API from '@/service/api'
 import { useEffect } from 'react'
 import EventDialog from '../subcomponets/EventDialog'
+import Spinner from '@/components/Spinner'
 
 export default function Events() {
   const [events, setEvents] = useState([])
@@ -45,7 +46,7 @@ export default function Events() {
       animate__animated animate__zoomIn animate__delay-2s'>
         {
           loadEvents ? (
-            <div>Loading Events...</div>
+            <Spinner/>
           ) : events.length === 0 ? (
             <div>No Events Created</div>
           ) : (events.map((ev) => (

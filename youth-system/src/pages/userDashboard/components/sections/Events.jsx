@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import API from '@/service/api'
 import EventItem from '../subsections/EventItem'
+import Spinner from '@/components/Spinner'
 
 export default function Events() {
   const [events, setEvents] = useState([])
@@ -30,7 +31,7 @@ export default function Events() {
         </h3>
 
         <div className="p-3 w-full flex gap-5 flex-wrap animate__animated animate__zoomIn animate__delay-2s">
-          {loading && <p>Loading events...</p>}
+          {loading && <Spinner/>}
 
           {!loading && events.length === 0 && (
             <p>No events. Check later</p>

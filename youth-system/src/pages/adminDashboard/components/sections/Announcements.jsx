@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Announcement from '../subcomponets/Announcement'
 import NewsDialog from '../subcomponets/NewsDialog'
 import API from '@/service/api'
+import Spinner from '@/components/Spinner'
 
 export default function Announcements() {
   const [news, setNews] = useState([])
@@ -94,7 +95,7 @@ export default function Announcements() {
         animate__animated animate__zoomIn animate__delay-2s'>
 
         {loadingFetch ? (
-          <div>Loading announcements...</div>
+          <Spinner/>
         ) : news.length === 0 ? (
           <div>No Announcements</div>
         ) : (

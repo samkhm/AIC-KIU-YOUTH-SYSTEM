@@ -3,6 +3,7 @@ import AnnouncementItem from '../subsections/AnnouncementItem'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import API from '@/service/api'
+import Spinner from '@/components/Spinner'
 
 export default function Announcements() {
   const [news, setNews] = useState([])
@@ -34,7 +35,7 @@ export default function Announcements() {
         <div className='p-3 flex flex-1 w-full items-center gap-5 flex-wrap animate__animated animate__zoomIn animate__delay-2s'>
           {
             loading ? (
-              <p>Loading announcements...</p>
+              <Spinner/>
             ) : news.length === 0 ? (
               <p>No announcements. Check later</p>
             ) : (

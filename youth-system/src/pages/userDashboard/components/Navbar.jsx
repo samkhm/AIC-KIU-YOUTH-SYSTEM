@@ -5,6 +5,7 @@ import DailyVerse from '@/pages/adminDashboard/components/subcomponets/DailyVers
 import API from '@/service/api'
 import { getUserId } from '@/utils/auth'
 
+
 export default function Navbar() {
   const firstName = getFirstName()
   const [showConfirm, setShowConfirm] = useState(false)
@@ -68,6 +69,7 @@ export default function Navbar() {
         <DailyVerse />
       </div>
 
+      
       {/* Logout Button */}
       <button
         onClick={() => setShowConfirm(true)}
