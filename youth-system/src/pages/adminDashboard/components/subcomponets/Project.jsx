@@ -346,7 +346,8 @@ export default function Project({ project, setProjects }) {
               {/* Content */}
               <div>
                 <label className="text-lg font-medium text-gray-700">Content</label>
-                <input
+                <textarea
+                rows={2}
                   type="text"
                   className="w-full border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
                   value={content}

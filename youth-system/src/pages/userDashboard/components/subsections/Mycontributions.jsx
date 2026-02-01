@@ -24,10 +24,11 @@ export default function Mycontributions({ contributions = [], projectId }) {
   );
 
   return (
-    <>
+    <>    
   <div className="w-full max-w-full min-w-0 flex">
     <div className="w-full max-w-full max-h-64 overflow-x-auto overflow-y-auto flex items-center justify-center">
       <div className="max-w-full w-64">
+        
       <table className="text-sm text-gray-700">
     <thead className="bg-gray-100 sticky top-0 z-10">
       <tr>

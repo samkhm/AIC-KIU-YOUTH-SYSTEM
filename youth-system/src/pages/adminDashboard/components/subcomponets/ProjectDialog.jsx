@@ -12,6 +12,7 @@ import { FaAd } from 'react-icons/fa'
 
 export default function ProjectDialog({ setProjects }) {
   const [title, setTitle] = useState("")
+  const [amount, setAmount] = useState("")
   const [content, setContent] = useState("")
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
@@ -159,10 +160,23 @@ export default function ProjectDialog({ setProjects }) {
             <label className="text-lg font-medium text-gray-700">Title</label>
             <input
               type="text"
+              required
               className="w-full border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
+          </div>
+          <div>
+            <label className="text-lg font-medium text-gray-700">Amount</label>
+            <input
+                                    type="number"
+                                    min="1"
+                                    step="1"
+                                    required
+                                    value={amount}
+                                    onChange={(e) => setAmount(e.target.value)}
+                                    className="w-full border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
+                                />
           </div>
 
           <div className='flex flex-wrap flex-row items-center justify-evenly gap-3'>
@@ -173,6 +187,7 @@ export default function ProjectDialog({ setProjects }) {
                         min={new Date().toISOString().split("T")[0]}
                         className="border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
                         value={startDate}
+                        required
                         onChange={(e) => setStartDate(e.target.value)}
                     />
                 </div>
@@ -180,6 +195,7 @@ export default function ProjectDialog({ setProjects }) {
                 <label className="text-lg font-medium text-gray-700">End</label>
                     <input
                         type="date"
+                        required
                         min={new Date().toISOString().split("T")[0]}
                         className="border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
                         value={endDate}
@@ -191,9 +207,11 @@ export default function ProjectDialog({ setProjects }) {
           {/* Content */}
           <div>
             <label className="text-lg font-medium text-gray-700">Content</label>
-            <input
+            <textarea
+              rows={2}
               type="text"
               className="w-full border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
+              required
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />

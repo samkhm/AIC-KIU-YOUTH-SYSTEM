@@ -21,6 +21,7 @@ export default function Sidebar({ activeSection, setActiveSection }) {
     { id: "announcements", name: "News", icon: <IoAlertCircleOutline /> },
     { id: "events", name: "Events", icon: <IoCalendarOutline /> },
     { id: "projects", name: "Projects", icon: <IoDocumentTextOutline /> },
+    { id: "pay", name: "My Pay", icon: <IoCashOutline /> },
     { id: "finance", name: "Finance", icon: <IoCashOutline /> },
     { id: "gallery", name: "Gallery", icon: <IoImageOutline /> },
     { id: "profile", name: "Profile", icon: <IoPerson /> },

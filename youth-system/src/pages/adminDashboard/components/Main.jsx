@@ -7,6 +7,7 @@ import Projects from "../components/sections/Projects"
 import Finance from "../components/sections/Finance"
 import Gallery from "../components/sections/Gallery"
 import Profile from '@/pages/userDashboard/components/sections/Profile'
+import ProjectsUser from '@/pages/userDashboard/components/sections/Projects'
 
 export default function Main({ activeSection, allUsersCount, users, errorLoadingUser, loadingUser, 
   updateUser, loadingUserUpdate, message, messageType, deleteUser, loadDelUser  }) {
@@ -24,6 +25,9 @@ export default function Main({ activeSection, allUsersCount, users, errorLoading
     case 'projects' :
       content = <div> <Projects/> </div>
       break;
+      case 'pay':
+        content = <div><ProjectsUser/></div>
+        break;
     case 'finance' :
       content = <div> <Finance/> </div>
       break;

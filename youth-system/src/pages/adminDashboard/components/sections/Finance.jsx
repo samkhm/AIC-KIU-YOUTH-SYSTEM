@@ -73,6 +73,12 @@ export default function Finance() {
     })
   }, [projectPayments, users])
 
+  const completedProjectTotal = useMemo(() => {
+    return projectPayments
+      .filter(p => p.status === 'completed')
+      .reduce((sum, p) => sum + Number(p.amount || 0), 0)
+  }, [projectPayments])
+
   const selectedProject = projects.find(p => p._id === selectedProjectId)
 
   /* ================= PRINT ================= */
@@ -116,6 +122,12 @@ export default function Finance() {
     )
     doc.text(`Project: ${selectedProject?.title || ''}`, 14, 28)
     doc.text(`Date: ${new Date().toLocaleDateString()}`, 14, 36)
+    doc.text(
+      `Total Completed Contributions: ${completedProjectTotal.toLocaleString()} KES`,
+      14,
+      40
+    )
+    
   
     if (type === 'summary') {
       const tableData = userTotals.map((u, index) => [
@@ -126,7 +138,7 @@ export default function Finance() {
       ])
   
       autoTable(doc, {
-        startY: 44,
+        startY: 48,
         head: [['No.', 'First Name', 'Last Name', 'Total Contributed']],
         body: tableData
       })
@@ -235,6 +247,10 @@ export default function Finance() {
               Project: {selectedProject?.title} | Date:{' '}
               {new Date().toLocaleDateString()}
             </p>  
+            {/* total of the current project */}
+            <label className="font-semibold mt-2">
+              Total Completed Contributions: {completedProjectTotal.toLocaleString()} KES
+            </label>
 
             <div className="w-full max-w-full min-w-0 flex mt-5">
             <div className="w-full max-w-full max-h-64 overflow-x-auto overflow-y-auto flex items-center">        

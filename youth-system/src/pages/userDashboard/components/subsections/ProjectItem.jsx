@@ -246,7 +246,7 @@ export default function ProjectItem({ project }) {
                                 <button
                                     type="button"
                                     onClick={openEdit}
-                                    className="p-2 border rounded hover:bg-gray-100"
+                                    className="p-2 border rounded hover:bg-gray-100 border border-green-300 hover:border-green-500"
                                 >
                                     Contribute
                                 </button>
@@ -260,6 +260,10 @@ export default function ProjectItem({ project }) {
                     <>
                         <DialogHeader>
                             <DialogTitle>Contribute to Project</DialogTitle>
+                            <div>
+                              <label className='text-sm italic text-gray-500'>Remaining:</label>
+                              <label className='italic text-sm text-green-600'> Kes. 2000</label>
+                            </div>
                         </DialogHeader>
 
                         {message && (
