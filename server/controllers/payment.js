@@ -1,5 +1,6 @@
 const Payment = require("../models/payments")
 const User = require("../models/User")
+const Project = require("../models/projects")
 const axios = require("axios")
 const mongoose = require("mongoose")
 
@@ -150,7 +151,9 @@ exports.createContributions = async (req, res) => {
 };
 
 exports.callBack = async (req, res) => {
+
   const callback = req.body?.Body?.stkCallback;
+    
   if (!callback) {
     return res.status(200).json({ message: "Callback received (no data)" });
   }
@@ -214,6 +217,25 @@ exports.callBack = async (req, res) => {
     payment.amount_paid = amount;
 
     await payment.save();
+
+    // Deduct project remaining amount
+    const updatedProject = await Project.findByIdAndUpdate(
+      payment.projectId,
+      {
+        $inc: { remainingAmount: -amount }
+      },
+      { new: true }
+    );
+
+      if (!updatedProject) {
+        // rollback payment if deduction fails (optional but professional)
+        payment.status = "failed";
+        await payment.save();
+
+        return res.status(409).json({
+          message: "Project contribution exceeds remaining amount"
+        });
+      }    
 
     return res.status(200).json({ message: "Payment completed" });
 

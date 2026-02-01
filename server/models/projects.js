@@ -4,6 +4,11 @@ const projectSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
     content: { type: String, required: true, trim: true },
+    amount: {
+      type: Number,
+      required: true
+    },
+    remainingAmount: Number, 
     image: String,
     imagePublicId: String,
     startDate: { type: String, required: true },

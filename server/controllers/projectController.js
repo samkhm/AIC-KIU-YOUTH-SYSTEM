@@ -2,12 +2,13 @@ const Project = require("../models/projects");
 const path = require("path")
 const fs = require("fs")
 const cloudinary = require("cloudinary").v2;
+const mongoose = require("mongoose")
 
 exports.createProject = async (req, res) => {
   try {
-    const { title, content, startDate, endDate } = req.body;
+    const { title, content, amount, startDate, endDate } = req.body;
 
-    if (!title || !content || !startDate || !endDate) {
+    if (!title || !content || !amount || !startDate || !endDate) {
       return res.status(400).json({ message: "All details required" });
     }
 
@@ -20,10 +21,11 @@ exports.createProject = async (req, res) => {
     const projectData = {
       title,
       content,
+      amount,
       startDate,
       endDate,
     };
-
+    
     if (req.file) {
       projectData.image = req.file.path;           // Cloudinary URL or local path
       projectData.imagePublicId = req.file.filename; // Cloudinary public_id
@@ -138,3 +140,21 @@ exports.deleteProject = async (req, res) => {
 }
 
 
+// GET /tasks/getProjectRemAmount/:projectId
+exports.getProjectRemainingAmount = async (req, res) => {
+  const { projectId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(projectId)) {
+    return res.status(400).json({ message: "Invalid project id" });
+  }
+
+  const project = await Project.findById(projectId).select("remainingAmount");
+
+  if (!project) {
+    return res.status(404).json({ message: "Project not found" });
+  }
+
+  return res.status(200).json({
+    remainingAmount: project.remainingAmount
+  });
+};

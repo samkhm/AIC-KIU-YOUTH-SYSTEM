@@ -1,7 +1,7 @@
 const express = require("express")
 const { protect, authorize } = require("../middleware/auth")
 const { generateToken } = require("../middleware/pay_auth")
-const { createProject, getProjects, completeProject, deleteProject, updateProject, permanentDelete } = require("../controllers/projectController")
+const { createProject, getProjects, completeProject, deleteProject, updateProject, getProjectRemainingAmount } = require("../controllers/projectController")
 const { createEvent, getEvents, deleteEvent, updateEvent } = require("../controllers/eventsController")
 const { createAnnouncement, getAnnouncements, deleteAnnouncement, updateAnnouncement } = require("../controllers/annoncementsController")
 // const {} = require("../controllers/reportsController")
@@ -20,6 +20,11 @@ router.get('/getProjects', protect, getProjects)
 router.delete('/deleteProject/:id', protect, authorize("admin", "moderator"), deleteProject)
 router.put('/updateProject/:id', protect, upload.single("image"), authorize("admin", "moderator"), updateProject)
 router.put('/completeProject/:id', protect, authorize("admin", "moderator"), completeProject)
+router.get(
+    "/getProjectRemAmount/:projectId", protect,
+    getProjectRemainingAmount
+  );
+  
 
 router.post('/createAnnouncement', protect, authorize("admin", "moderator"), createAnnouncement)
 router.get('/getAnnouncements', protect, getAnnouncements)

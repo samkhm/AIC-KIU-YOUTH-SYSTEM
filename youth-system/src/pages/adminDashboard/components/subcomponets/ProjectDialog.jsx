@@ -4,128 +4,134 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose
-} from '@/components/ui/dialog'
-import API from '@/service/api'
-import React, { useEffect, useState } from 'react'
-import { FaAd } from 'react-icons/fa'
+  DialogClose,
+} from "@/components/ui/dialog";
+import API from "@/service/api";
+import React, { useEffect, useState } from "react";
+import { FaAd } from "react-icons/fa";
 
 export default function ProjectDialog({ setProjects }) {
-  const [title, setTitle] = useState("")
-  const [amount, setAmount] = useState("")
-  const [content, setContent] = useState("")
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
-  const [image, setImage] = useState(null)
-  const [imagePreview, setImagePreview] = useState(null)
+  const [title, setTitle] = useState("");
+  const [amount, setAmount] = useState("");
+  const [content, setContent] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  const [message, setMessage] = useState("")
-  const [messageType, setMessageType] = useState("")
-  const [loadCreate, setLoadCreate] = useState(false)
-  const [uploadProgress, setUploadProgress] = useState(0)
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [loadCreate, setLoadCreate] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const clearMessages = () => {
-    setMessage("")
-    setMessageType("")
-  }
+    setMessage("");
+    setMessageType("");
+  };
 
   /* Auto-clear messages */
   useEffect(() => {
-    if (!message) return
-    const timer = setTimeout(clearMessages, 3000)
-    return () => clearTimeout(timer)
-  }, [message])
+    if (!message) return;
+    const timer = setTimeout(clearMessages, 3000);
+    return () => clearTimeout(timer);
+  }, [message]);
 
   /* Cleanup image preview URL */
   useEffect(() => {
     return () => {
       if (imagePreview) {
-        URL.revokeObjectURL(imagePreview)
+        URL.revokeObjectURL(imagePreview);
       }
-    }
-  }, [imagePreview])
+    };
+  }, [imagePreview]);
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]
-    if (!file) return
+    const file = e.target.files[0];
+    if (!file) return;
 
-    setImage(file)
+    setImage(file);
 
-    const previewUrl = URL.createObjectURL(file)
-    setImagePreview(previewUrl)
-  }
+    const previewUrl = URL.createObjectURL(file);
+    setImagePreview(previewUrl);
+  };
 
   const createProject = async () => {
-    setLoadCreate(true)
-    setUploadProgress(0)
+    setLoadCreate(true);
+    setUploadProgress(0);
 
     try {
-      const formData = new FormData()
-      formData.append("title", title)
-      formData.append("content", content)
-      formData.append("startDate", startDate)
-      formData.append("endDate", endDate)
-      if (image) formData.append("image", image)
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("content", content);
+      formData.append("amount", amount)
+      formData.append("startDate", startDate);
+      formData.append("endDate", endDate);
+      if (image) formData.append("image", image);
 
       const res = await API.post("/tasks/createProject", formData, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: (progressEvent) => {
-          if (!progressEvent.total) return
+          if (!progressEvent.total) return;
           const percent = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
-          )
-          setUploadProgress(percent)
-        }
-      })
+          );
+          setUploadProgress(percent);
+        },
+      });
 
-      const newProject = res.data.project
-      setProjects(prev => [newProject, ...prev])
+      const newProject = res.data.project;
+      setProjects((prev) => [newProject, ...prev]);
 
-      setMessage(res.data?.response?.message || "Project created successfully")
-      setMessageType("success")
+      setMessage(res.data?.response?.message || "Project created successfully");
+      setMessageType("success");
 
       // Reset form
-      setTitle("")
-      setStartDate("")
-      setEndDate("")
-      setContent("")
-      setImage(null)
-      setImagePreview(null)
-      setUploadProgress(0)
+      setTitle("");
+      setStartDate("");
+      setEndDate("");
+      setContent("");
+      setAmount("")
+      setImage(null);
+      setImagePreview(null);
+      setUploadProgress(0);
     } catch (error) {
-      const msg =
-        error.response?.data?.message || "Failed to create project"
-      setMessage(msg)
-      setMessageType("error")
+      const msg = error.response?.data?.message || "Failed to create project";
+      setMessage(msg);
+      setMessageType("error");
     } finally {
-      setLoadCreate(false)
+      setLoadCreate(false);
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    clearMessages()
+    e.preventDefault();
+    clearMessages();
 
     if (!title.trim() || !content.trim()) {
-      setMessage("Title and content are required")
-      setMessageType("error")
-      return
+      setMessage("Title and content are required");
+      setMessageType("error");
+      return;
+    }
+    if (!amount || amount <= 0) {
+      setMessage("Contribution amount must be greater than 0");
+      setMessageType("error");
+      return;
     }
 
-    if (!startDate.trim() || !endDate.trim()){
-      setMessage("Start & end dates required")
-      setMessageType("error")
-      return
+    if (!startDate.trim() || !endDate.trim()) {
+      setMessage("Start & end dates required");
+      setMessageType("error");
+      return;
     }
 
-    if (!endDate > startDate){
-      setMessage("End date can't be greater than beginning date")
-      setMessageType("error")
-      retun
+    if (!endDate > startDate) {
+      setMessage("End date can't be greater than beginning date");
+      setMessageType("error");
+      retun;
     }
 
-    await createProject()
-  }
+    await createProject();
+  };
 
   return (
     <Dialog>
@@ -145,10 +151,9 @@ export default function ProjectDialog({ setProjects }) {
 
         {message && (
           <p
-            className={`text-sm italic ${messageType === "success"
-                ? "text-green-500"
-                : "text-red-500"
-              }`}
+            className={`text-sm italic ${
+              messageType === "success" ? "text-green-500" : "text-red-500"
+            }`}
           >
             {message}
           </p>
@@ -169,39 +174,39 @@ export default function ProjectDialog({ setProjects }) {
           <div>
             <label className="text-lg font-medium text-gray-700">Amount</label>
             <input
-                                    type="number"
-                                    min="1"
-                                    step="1"
-                                    required
-                                    value={amount}
-                                    onChange={(e) => setAmount(e.target.value)}
-                                    className="w-full border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
-                                />
+              type="number"
+              min="1"
+              step="1"
+              required
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="w-full border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
+            />
           </div>
 
-          <div className='flex flex-wrap flex-row items-center justify-evenly gap-3'>
-                <div className='flex flex-col items-center gap-2'>
-                <label className="text-lg font-medium text-gray-700">Begin</label>
-                    <input
-                        type="date"
-                        min={new Date().toISOString().split("T")[0]}
-                        className="border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
-                        value={startDate}
-                        required
-                        onChange={(e) => setStartDate(e.target.value)}
-                    />
-                </div>
-                <div className='flex flex-col items-center gap-2'>
-                <label className="text-lg font-medium text-gray-700">End</label>
-                    <input
-                        type="date"
-                        required
-                        min={new Date().toISOString().split("T")[0]}
-                        className="border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                    />
-                </div>
+          <div className="flex flex-wrap flex-row items-center justify-evenly gap-3">
+            <div className="flex flex-col items-center gap-2">
+              <label className="text-lg font-medium text-gray-700">Begin</label>
+              <input
+                type="date"
+                min={new Date().toISOString().split("T")[0]}
+                className="border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
+                value={startDate}
+                required
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <label className="text-lg font-medium text-gray-700">End</label>
+              <input
+                type="date"
+                required
+                min={new Date().toISOString().split("T")[0]}
+                className="border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
           </div>
 
           {/* Content */}
@@ -271,5 +276,5 @@ export default function ProjectDialog({ setProjects }) {
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
