@@ -8,7 +8,7 @@ import { useState } from 'react'
 export default function UserBoard() {
   const [activeSection, setActiveSection] = useState('home')
   return (
-    <div className='flex flex-col min-h-screen max-w-screen'>
+    <div className='flex flex-col min-h-screen max-w-screen animate__animated animate__zoomIn animate__delay-1s'>
       <Navbar/>
       <div className='flex flex-row flex-1 min-h-0'>
         <Sidebar activeSection={activeSection} setActiveSection={setActiveSection}/>

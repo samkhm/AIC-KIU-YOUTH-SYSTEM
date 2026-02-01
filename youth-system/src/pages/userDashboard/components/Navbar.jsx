@@ -53,15 +53,18 @@ export default function Navbar() {
   return (
 
     
-    <div className='bg-blue-500 p-4 flex items-center justify-between shadow-md relative'>
+    <div className='bg-blue-500 p-4 flex items-center justify-between shadow-md relative
+   '>
       
       {/* Admin Name */}
-      <p className='text-white text-2xl font-bold'>
+      <p className='text-white text-2xl font-bold
+      animate__animated animate__headShake animate__infinite animate__slower'>
         {firstName.charAt(0).toUpperCase() + firstName.slice(1)}
       </p>
 
       {/* Daily Verse */}
-      <div className='flex items-center justify-center bg-white/20 px-4 py-2 rounded shadow-inner hidden sm:block'>
+      <div className='flex items-center justify-center bg-white/20 px-4 py-2 rounded shadow-inner hidden sm:block
+      animate__animated animate__zoomIn animate__delay-2s'>
         <DailyVerse />
       </div>
 

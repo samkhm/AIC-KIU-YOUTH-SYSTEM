@@ -64,7 +64,7 @@ export default function BibleStory() {
   }, []);
 
   return (
-    <div className="story-container">
+    <div className="story-container animate__animated animate__zoomIn animate__delay-2s">
       <Box>
         <h3
           className={`font-semibold text-lg mb-2 border-b flex items-center justify-center ${

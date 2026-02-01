@@ -62,7 +62,7 @@ export default function Profile() {
   /* ================= UI ================= */
 
   return (
-    <div className="min-h-screen flex justify-center px-4 py-8">
+    <div className="min-h-screen flex justify-center px-4 py-8 animate__animated animate__zoomIn animate__delay-1s">
       <div className="w-full max-w-2xl bg-white rounded-xl shadow-md p-6">
         
         {/* Header */}
@@ -86,7 +86,7 @@ export default function Profile() {
         {/* Form */}
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 animate__animated animate__zoomIn animate__delay-2s"
         >
           {/* Username */}
           <div>

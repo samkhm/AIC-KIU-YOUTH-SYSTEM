@@ -29,7 +29,7 @@ export default function FrequentUsers() {
 
   return (
   
-    <div className="w-full max-w-full min-w-0 ">
+    <div className="w-full max-w-full min-w-0 animate__animated animate__zoomIn animate__delay-2s">
     <div className="w-full max-w-full max-h-64 overflow-x-auto overflow-y-auto flex items-center justify-center">
       <div className="max-w-full w-64">
       <table className="text-sm text-gray-700">

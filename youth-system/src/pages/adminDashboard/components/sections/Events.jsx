@@ -29,7 +29,7 @@ export default function Events() {
 
 
   return (
-    <div className='border-l-2 rounded p-5 m-5 flex flex-col h-screen'>
+    <div className='border-l-2 rounded p-5 m-5 flex flex-col h-screen animate__animated animate__zoomIn animate__delay-1s'>
 
       <div className='flex items-center justify-between gap-5 border-b border-gray-200 p-3 sticky top-0 bg-white z-10'>
         <h3 className='text-xl border-b-3 border-gray-400 p-2 rounded'>Events</h3>
@@ -40,7 +40,9 @@ export default function Events() {
         </div>
       </div>
 
-      <div className=' flex flex-row flex-wrap justify-center items-start bg-gray-200 p-5 gap-5 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200'>
+      <div className=' flex flex-row flex-wrap justify-center items-start bg-gray-200 
+      p-5 gap-5 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200
+      animate__animated animate__zoomIn animate__delay-2s'>
         {
           loadEvents ? (
             <div>Loading Events...</div>

@@ -15,7 +15,7 @@ export default function Item({ allUsersCount, users }) {
    return (
     <>
     <Box>
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center animate__animated animate__zoomIn animate__delay-1s">
         <h3 className="text-md italic text-gray-400">
          Registered Youths
         </h3>
@@ -25,7 +25,7 @@ export default function Item({ allUsersCount, users }) {
       </div>
     </Box>
     <Box>
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center animate__animated animate__zoomIn animate__delay-1s">
         <h3 className="text-md italic text-gray-400">
           System Admins
         </h3>
@@ -35,7 +35,7 @@ export default function Item({ allUsersCount, users }) {
       </div>
     </Box>
     <Box>
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center animate__animated animate__zoomIn animate__delay-1s">
         <h3 className="text-md italic text-gray-400">
           System Users
         </h3>

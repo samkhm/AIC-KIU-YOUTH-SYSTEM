@@ -38,62 +38,62 @@ export default function Form({
         <form
           onSubmit={onSubmit}
           onClick={() => setMessage("")}
-          className="flex flex-col bg-white/80 backdrop-blur p-4 sm:p-6 rounded-lg gap-4 shadow-md"
+          className="flex flex-col bg-white/80 backdrop-blur p-4 sm:p-6 rounded-lg gap-4 shadow-md animate__animated animate__zoomIn animate__delay-2s"
         >
          
 
           {/* First & Last Name */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="text-sm font-medium">First Name</label>
+              <label className="text-sm font-medium animate__animated animate__zoomIn animate__delay-2s">First Name</label>
               <input
                 type="text"
-                className="border rounded p-2 w-full text-sm"
+                className="border rounded p-2 w-full text-sm animate__animated animate__zoomIn animate__delay-2s"
                 value={fname}
                 onChange={(e) => {
                   setFname(e.target.value);
                   if (errors.fname) setErrors((p) => ({ ...p, fname: "" }));
                 }}
               />
-              <p className="text-xs text-red-500">{errors.fname}</p>
+              <p className="text-xs text-red-500 animate__animated animate__zoomIn animate__delay-2s">{errors.fname}</p>
             </div>
 
             <div>
-              <label className="text-sm font-medium">Last Name</label>
+              <label className="text-sm font-medium animate__animated animate__zoomIn animate__delay-2s">Last Name</label>
               <input
                 type="text"
-                className="border rounded p-2 w-full text-sm"
+                className="border rounded p-2 w-full text-sm animate__animated animate__zoomIn animate__delay-2s"
                 value={lname}
                 onChange={(e) => {
                   setLname(e.target.value);
                   if (errors.lname) setErrors((p) => ({ ...p, lname: "" }));
                 }}
               />
-              <p className="text-xs text-red-500">{errors.lname}</p>
+              <p className="text-xs text-red-500 animate__animated animate__zoomIn animate__delay-2s">{errors.lname}</p>
             </div>
           </div>
 
           {/* Email */}
           <div>
-            <label className="text-sm font-medium">Email</label>
+            <label className="text-sm font-medium animate__animated animate__zoomIn animate__delay-2s">Email</label>
             <input
               type="email"
-              className="border rounded p-2 w-full text-sm"
+              className="border rounded p-2 w-full text-sm animate__animated animate__zoomIn animate__delay-2s"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
                 if (errors.email) setErrors((p) => ({ ...p, email: "" }));
               }}
             />
-            <p className="text-xs text-red-500">{errors.email}</p>
+            <p className="text-xs text-red-500 animate__animated animate__zoomIn animate__delay-2s">{errors.email}</p>
           </div>
 
           {/* Phone */}
           <div>
-            <label className="text-sm font-medium">Phone</label>
+            <label className="text-sm font-medium animate__animated animate__zoomIn animate__delay-2s">Phone</label>
             <input
               type="text"
-              className="border rounded p-2 w-full text-sm"
+              className="border rounded p-2 w-full text-sm animate__animated animate__zoomIn animate__delay-2s  "
               value={phone}
               onChange={(e) => {
                 setPhone(e.target.value);

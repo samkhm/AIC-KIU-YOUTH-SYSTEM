@@ -11,12 +11,15 @@ export default function Form({
 
   const [showPass, setShowPass] = useState(false)
   return (
-    <Box>
-      <div className="w-full max-w-lg mx-auto px-2">
+    
+      <Box>
+        <div className="w-full max-w-lg mx-auto px-2 bg-white/80 backdrop-blur p-4 sm:p-6 rounded-lg gap-4 shadow-md">
         <form
           onSubmit={onSubmit}
           onClick={() => setMessage('')}
-          className="flex flex-col bg-white/80 backdrop-blur p-4 sm:p-6 rounded-lg gap-4 shadow-md"
+          className="flex flex-col backdrop-blur p-4 sm:p-6 rounded-lg gap-4 shadow-md
+          animate__animated animate__zoomIn animate__delay-2s
+          "
         >
           {/* Message */}
           {message && (
@@ -35,10 +38,10 @@ export default function Form({
   
           {/* Identifier */}
           <div>
-            <label className="text-sm font-medium">Email or Username</label>
+            <label className="text-sm font-medium animate__animated animate__zoomIn animate__delay-2s">Email or Username</label>
             <input
               type="text"
-              className="border rounded p-2 w-full text-sm"
+              className="border rounded p-2 w-full text-sm animate__animated animate__zoomIn animate__delay-2s"
               placeholder="Enter email or username"
               value={identifier}
               onChange={(e) => {
@@ -47,17 +50,17 @@ export default function Form({
                   setErrors((p) => ({ ...p, identifier: '' }))
               }}
             />
-            <p className="text-xs text-red-500">{errors.identifier}</p>
+            <p className="text-xs text-red-500 animate__animated animate__zoomIn animate__delay-2s">{errors.identifier}</p>
           </div>
   
           {/* Password */}
           <div className="flex flex-col w-full">
-            <label className="text-sm font-medium mb-1">Password</label>
+            <label className="text-sm font-medium mb-1 animate__animated animate__zoomIn animate__delay-2s">Password</label>
 
                 <div className="relative w-full">
                   <input
                     type={showPass ? "text" : "password"}
-                    className="border rounded p-2 w-full text-sm pr-10" // add right padding for the button
+                    className="border rounded p-2 w-full text-sm pr-10 animate__animated animate__zoomIn animate__delay-2s" // add right padding for the button
                     placeholder="Password"
                     value={password}
                     onChange={(e) => {
@@ -69,24 +72,24 @@ export default function Form({
                   <button
                     type="button"
                     onClick={() => setShowPass(!showPass)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 animate__animated animate__zoomIn animate__delay-2s"
                   >
                     {showPass ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
 
-                <p className="text-xs text-red-500 mt-1">{errors.password}</p>
+                <p className="text-xs text-red-500 mt-1 animate__animated animate__zoomIn animate__delay-2s">{errors.password}</p>
               </div>
 
   
           {/* Footer */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-            <p className="text-xs text-center sm:text-left">
+            <p className="text-xs text-center sm:text-left animate__animated animate__zoomIn animate__delay-2s">
               Not yet registered?{' '}
               <button
   type="button"
   onClick={switchToRegister}
-  className="text-blue-500 underline font-medium"
+  className="text-blue-500 underline font-medium animate__animated animate__zoomIn animate__delay-2s"
 >
   Register
 </button>
@@ -95,17 +98,18 @@ export default function Form({
             <button
               type="submit"
               disabled={loading}
-              className="w-full sm:w-40 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded transition"
+              className="w-full sm:w-40 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded transition animate__animated animate__zoomIn animate__delay-2s"
             >
               {loading ? 'Please wait...' : 'Log In'}
             </button>
           </div>
-          <p className='text-xs text-center sm:text-left'>
+          <p className='text-xs text-center sm:text-left animate__animated animate__zoomIn animate__delay-2s'>
             <a href="/cornfirm_password" className='text-blue-500 underline'>Reset password</a>
           </p>
         </form>
       </div>
-    </Box>
+      </Box>
+    
   )
   
 }

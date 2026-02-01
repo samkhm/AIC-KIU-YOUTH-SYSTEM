@@ -67,7 +67,7 @@ export default function Announcements() {
   }, [])
 
   return (
-    <div className='border-l-2 rounded p-5 m-5 min-h-screen flex flex-col'>
+    <div className='border-l-2 rounded p-5 m-5 min-h-screen flex flex-col animate__animated animate__zoomIn animate__delay-1s'>
       <div className='flex items-center justify-between gap-5 border-b border-gray-200 p-3 sticky top-0 bg-white z-10'>
         <h3 className='text-xl border-b-2 border-gray-400 p-2 rounded'>
           Announcements
@@ -90,7 +90,8 @@ export default function Announcements() {
 
       <div className=' flex flex-wrap items-start bg-gray-200 justify-center
         p-5 gap-5 overflow-y-auto scrollbar-thin
-        scrollbar-thumb-gray-400 scrollbar-track-gray-200'>
+        scrollbar-thumb-gray-400 scrollbar-track-gray-200 
+        animate__animated animate__zoomIn animate__delay-2s'>
 
         {loadingFetch ? (
           <div>Loading announcements...</div>

@@ -31,12 +31,15 @@ export default function Sidebar({ activeSection, setActiveSection }) {
           <span
           onClick={() => setOpen(true)}
            className="fixed top-20 left-3 z-50 cursor-pointer bg-blue-500 text-white bold p-1
-           lg:hidden border-2 border-blue-600 rounded">Menu</span>
+           lg:hidden border-2 border-blue-600 rounded
+           animate__animated animate__tada animate__infinite animate__slower
+           ">Menu</span>
       )}
 
       {/* Sidebar */}
       <aside
         className={`
+           animate__animated animate__zoomIn animate__delay-1s
           fixed left-0 max-h-full bg-blue-400 p-3 z-40
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
@@ -52,7 +55,7 @@ export default function Sidebar({ activeSection, setActiveSection }) {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 animate__animated animate__zoomIn animate__delay-2s">
           {menuItems.map(item => (
             <div
               key={item.id}
@@ -61,6 +64,7 @@ export default function Sidebar({ activeSection, setActiveSection }) {
                 setOpen(false)
               }}
               className={`flex items-center gap-3 p-2 rounded cursor-pointer transition
+                animate__animated animate__zoomIn animate__delay-2s
                 hover:bg-gray-300
                 ${activeSection === item.id ? "bg-gray-200" : ""}`}
             >

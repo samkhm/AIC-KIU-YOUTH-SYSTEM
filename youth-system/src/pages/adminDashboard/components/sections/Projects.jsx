@@ -28,7 +28,7 @@ export default function Projects() {
 
 
   return (
-    <div className="border-l-2 rounded m-5 p-5 h-screen flex flex-col">
+    <div className="border-l-2 rounded m-5 p-5 h-screen flex flex-col animate__animated animate__zoomIn animate__delay-1s">
       {/* Header */}
       <div className="flex items-center justify-between gap-5 border-b border-gray-200 p-3 sticky top-0 bg-white z-10">
         <h3 className="text-xl font-semibold">Projects</h3>
@@ -38,7 +38,9 @@ export default function Projects() {
       </div>
 
       {/* Scrollable project list */}
-      <div className=" flex flex-row flex-wrap justify-center items-start gap-5 p-5 bg-gray-200 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+      <div className=" flex flex-row flex-wrap justify-center items-start 
+      gap-5 p-5 bg-gray-200 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200
+      animate__animated animate__zoomIn animate__delay-2s">
         {/* Multiple Project components */}
         {
           loadPj ? (

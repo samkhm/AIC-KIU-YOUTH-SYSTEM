@@ -6,7 +6,7 @@ import SuperAdmins from '../subcomponets/SuperAdmins'
 export default function Users({ users, loadingUser, updateUser, loadingUserUpdate, message,
   messageType, deleteUser, loadDelUser }) {
   return (
-    <div className="border-l-2 rounded p-4 m-2 md:m-5 flex flex-col flex-1 min-h-0">
+    <div className="border-l-2 rounded p-4 m-2 md:m-5 flex flex-col flex-1 min-h-0 animate__animated animate__zoomIn animate__delay-1s">
 
 {/* <div className="border-l-2 rounded p-4 m-2 md:m-5 min-h-screen flex flex-col"> */}
 
@@ -19,7 +19,9 @@ export default function Users({ users, loadingUser, updateUser, loadingUserUpdat
   {/* <div className="flex flex-col md:flex-row flex-wrap gap-4 md:gap-5 mt-4 w-full"> */}
   <div
   className="flex flex-col flex-wrap justify-start items-start gap-5 p-5 
-  bg-gray-200 overflow-y-auto overflow-x-hidden min-h-0 w-full"
+  bg-gray-200 overflow-y-auto overflow-x-hidden min-h-0 w-full
+  animate__animated animate__zoomIn animate__delay-2s
+  "
 >
 
     {/* Super Admins */}

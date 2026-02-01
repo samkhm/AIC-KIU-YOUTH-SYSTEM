@@ -12,11 +12,11 @@ export default function CornfirmEmailForm({
 
   return (
     <Box>
-      <div className="w-full max-w-lg mx-auto px-2">
+      <div className="w-full max-w-lg mx-auto px-2 animate__animated animate__zoomIn animate__delay-2s">
         <form
           onSubmit={onSubmit}
           onClick={() => setMessage('')}
-          className="flex flex-col bg-white/80 backdrop-blur p-4 sm:p-6 rounded-lg gap-4 shadow-md"
+          className="flex flex-col bg-white/80 backdrop-blur p-4 sm:p-6 rounded-lg gap-4 shadow-md animate__animated animate__zoomIn animate__delay-2s"
         >
           {/* Message */}
           {message && (
@@ -35,10 +35,10 @@ export default function CornfirmEmailForm({
   
           {/* Identifier */}
           <div>
-            <label className="text-sm font-medium">Email or Username</label>
+            <label className="text-sm font-medium animate__animated animate__zoomIn animate__delay-2s">Email or Username</label>
             <input
               type="text"
-              className="border rounded p-2 w-full text-sm"
+              className="border rounded p-2 w-full text-sm animate__animated animate__zoomIn animate__delay-2s"
               placeholder="Enter email or username"
               value={identifier}
               onChange={(e) => {
@@ -47,7 +47,7 @@ export default function CornfirmEmailForm({
                   setErrors((p) => ({ ...p, identifier: '' }))
               }}
             />
-            <p className="text-xs text-red-500">{errors.identifier}</p>
+            <p className="text-xs text-red-500 animate__animated animate__zoomIn animate__delay-2s">{errors.identifier}</p>
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
 
@@ -58,7 +58,7 @@ export default function CornfirmEmailForm({
             <button
               type="submit"
               disabled={loading}
-              className="w-full sm:w-40 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded transition"
+              className="w-full sm:w-40 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded transition animate__animated animate__zoomIn animate__delay-2s"
             >
               {loading ? 'Cornfirming...' : 'Cornfirm'}
             </button>

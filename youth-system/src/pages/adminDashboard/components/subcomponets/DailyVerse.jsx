@@ -72,7 +72,7 @@ export default function DailyVerse() {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col animate__animated animate__zoomIn animate__delay-1s">
       <span className="font-semibold">{reference}</span>
       <span className="text-white text-sm">{verse}</span>
     </div>
