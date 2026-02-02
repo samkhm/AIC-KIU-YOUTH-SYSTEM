@@ -60,7 +60,7 @@ export default function Finance() {
     projectPayments.forEach(p => {
       if (p.status !== 'completed') return
       if (!totalsMap[p.userId]) totalsMap[p.userId] = 0
-      totalsMap[p.userId] += p.amount
+      totalsMap[p.userId] += p.amount_paid
     })
     return Object.entries(totalsMap).map(([userId, total]) => {
       const user = users.find(u => u._id === userId)
@@ -76,7 +76,7 @@ export default function Finance() {
   const completedProjectTotal = useMemo(() => {
     return projectPayments
       .filter(p => p.status === 'completed')
-      .reduce((sum, p) => sum + Number(p.amount || 0), 0)
+      .reduce((sum, p) => sum + Number(p.amount_paid || 0), 0)
   }, [projectPayments])
 
   const selectedProject = projects.find(p => p._id === selectedProjectId)
@@ -151,7 +151,7 @@ export default function Finance() {
           index + 1,
           user?.fname || 'Unknown',
           user?.lname || '',
-          p.amount,
+          p.amount_paid,
           new Date(p.createdAt).toLocaleDateString(),
           p.transaction_id || '-',
           p.status
@@ -330,7 +330,7 @@ export default function Finance() {
                           <td className="border p-2 text-center">{index + 1}</td>
                           <td className="border p-2 text-center">{user?.fname || 'Unknown'}</td>
                           <td className="border p-2 text-center">{user?.lname || ''}</td>
-                          <td className="border p-2 text-center">{p.amount}</td>
+                          <td className="border p-2 text-center">{p.amount_paid}</td>
                           <td className="border p-2 text-center">{new Date(p.createdAt).toLocaleDateString()}</td>
                           <td className="border p-2 text-center">{p.transaction_id || '-'}</td>
                           <td className="border p-2 text-center">{p.status}</td>

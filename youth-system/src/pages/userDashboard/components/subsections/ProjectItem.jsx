@@ -29,7 +29,8 @@ export default function ProjectItem({ project }) {
   const [contributions, setContributions] = useState([]);
   const [loadCont, setLoadCont] = useState(false);
 
-  const [remAmount, setRemAmount] = useState(0)
+  const [initialAmount, setInitialAmount] = useState(null);
+  const [remainingAmount, setRemainingAmount] = useState(null);
 
   const userId = getUserId();
 
@@ -77,20 +78,27 @@ export default function ProjectItem({ project }) {
     }
   };
 
-
   const fetchRemainingAmount = async () => {
     if (!project?._id) return;
-  
+
     try {
-      const res = await API.get(
-        `/tasks/getProjectRemAmount/${project._id}`
-      );  
-      setRemAmount(res.data?.remainingAmount ?? 0);      
-    } catch (error) {
-      console.error("Failed to fetch remaining amount", error);
+      const res = await API.get(`/tasks/getProjectRemAmount/${project._id}`);
+
+      const safeRemaining = res.data?.remainingAmount ?? res.data?.amount ?? 0;
+      const safeAmount = res.data?.amount ?? 0;
+
+      setRemainingAmount(Number(safeRemaining));
+      setInitialAmount(Number(safeAmount));
+    } catch (err) {
+      console.error("Failed to fetch remaining amount", err);
+      setRemainingAmount(0);
+      setInitialAmount(0);
     }
   };
-  
+
+  useEffect(() => {
+    fetchRemainingAmount();
+  }, [project._id]);
 
   useEffect(() => {
     fetchContributions();
@@ -177,7 +185,7 @@ export default function ProjectItem({ project }) {
       userId,
       projectId: project._id,
       project_name: project.title,
-      amount: Number(amount),
+      amount_paid: Number(amount),
     };
 
     await payment(payload);
@@ -271,12 +279,27 @@ export default function ProjectItem({ project }) {
           <>
             <DialogHeader>
               <DialogTitle>Contribute to Project</DialogTitle>
-              <div>
-              <label className="italic text-sm">
-                {remAmount > 0
-                  ? `Remaining: Kes. ${remAmount}`
-                  : `Overfunded by: Kes. ${Math.abs(remAmount)}`}
-              </label>
+              <div className="flex flex-col">
+                <label>Target Amount: Kes. {initialAmount}</label>
+                <label
+                  className={`italic text-sm font-medium ${
+                    remainingAmount === null
+                      ? "text-gray-500"
+                      : remainingAmount < 0
+                      ? "text-red-600"
+                      : remainingAmount === 0
+                      ? "text-blue-600"
+                      : "text-green-600"
+                  }`}
+                >
+                  {remainingAmount === null
+                    ? "Start contribution"
+                    : remainingAmount < 0
+                    ? `Overpaid by: Kes. ${Math.abs(remainingAmount)}`
+                    : remainingAmount === 0
+                    ? "Fully funded!"
+                    : `Remaining: Kes. ${remainingAmount}`}
+                </label>
               </div>
             </DialogHeader>
 

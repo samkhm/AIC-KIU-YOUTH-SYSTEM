@@ -19,14 +19,14 @@ export default function Mycontributions({ contributions = [], projectId }) {
   const totalAmount = projectContributions.reduce(
     (sum, c) => 
       c.status === "completed"
-    ?  sum + (c.amount || 0) :sum,
+    ?  sum + (c.amount_paid || 0) :sum,
     0
   );
 
   return (
     <>    
   <div className="w-full max-w-full min-w-0 flex">
-    <div className="w-full max-w-full max-h-64 overflow-x-auto overflow-y-auto flex items-center justify-center">
+    <div className="w-full max-w-full max-h-32 overflow-x-auto overflow-y-auto flex items-center justify-center">
       <div className="max-w-full w-64">
         
       <table className="text-sm text-gray-700">
@@ -47,7 +47,7 @@ export default function Mycontributions({ contributions = [], projectId }) {
               ? new Date(c.createdAt).toLocaleDateString('en-GB')
               : '-'}
           </td>
-          <td className="px-2 py-1 border-b text-sm">{c.amount}</td>
+          <td className="px-2 py-1 border-b text-sm">{c.amount_paid}</td>
           <td
             className={`px-2 py-1 border-b text-sm font-semibold ${
               statusColors[c.status] || 'text-gray-500'

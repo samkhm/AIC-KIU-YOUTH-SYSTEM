@@ -136,7 +136,7 @@ export default function SuperAdmins({
             </td>
             <td className="px-3 py-2 text-center">
               <span className="px-2 py-1 rounded bg-green-200">
-                {mod.status === "true" ? "Active" : "Inactive"}
+                {mod.status ? "Active" : "Inactive"}
               </span>
             </td>
             {userRole === "moderator" && (
