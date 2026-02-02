@@ -175,9 +175,7 @@ export default function Admins({
                       </td>
                       <td className="px-2 sm:px-3 py-2 text-center">
                         <span
-                          className={`px-2 py-1 rounded ${
-                            admin.status ? "bg-green-200" : "bg-red-200"
-                          }`}
+                          className={`px-2 py-1 rounded bg-green-400 border rounded border-yellow-430 ${ admin.status ? "text-white" : ""}`}
                         >
                           {admin.status ? "Active" : "Inactive"}
                         </span>

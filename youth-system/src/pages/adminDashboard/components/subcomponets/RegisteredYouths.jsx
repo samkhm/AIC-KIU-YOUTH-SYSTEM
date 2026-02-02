@@ -180,7 +180,7 @@ export default function RegisteredYouths({
                     </span>
                   </td>
                   <td className="px-3 py-2 text-center">
-                    <span className="px-2 py-1 rounded bg-green-300">
+                    <span className={`px-2 py-1 rounded bg-green-400 border rounded border-yellow-430 ${ user.status ? "text-white" : ""}`}>
                       {user.status ? "Active" : "Inactive"}
                     </span>
                   </td>

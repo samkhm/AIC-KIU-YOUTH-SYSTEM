@@ -135,7 +135,7 @@ export default function SuperAdmins({
               <span className="bg-blue-500 p-1 rounded text-white">{mod.role}</span>
             </td>
             <td className="px-3 py-2 text-center">
-              <span className="px-2 py-1 rounded bg-green-400 border border-yellow-430">
+              <span className={`px-2 py-1 rounded bg-green-400 border rounded border-yellow-430 ${ mod.status ? "text-white" : ""}`}>
                 {mod.status ? "Online" : "Offline"}
               </span>
             </td>
