@@ -7,7 +7,7 @@ const mongoose = require("mongoose")
 
 exports.createContributions = async (req, res) => {
   try {
-    let { userId, projectId, project_name, amount } = req.body;
+    let { userId, projectId, project_name, amount_paid } = req.body;
         
     // Normalize userId if nested
     if (typeof userId === "object" && userId?.userId) {
@@ -50,8 +50,8 @@ exports.createContributions = async (req, res) => {
     }
 
     // Validate amount
-    amount = Number(amount);
-    if (isNaN(amount) || amount < 1) {
+    amount_paid = Number(amount_paid);
+    if (isNaN(amount_paid) || amount_paid < 1) {
       return res.status(400).json({ error: "Amount must be at least 1 KES" });
     }
 
@@ -83,7 +83,7 @@ exports.createContributions = async (req, res) => {
       Password: password,
       Timestamp: timestamp,
       TransactionType: "CustomerPayBillOnline",
-      Amount: amount,
+      Amount: amount_paid,
       PartyA: phone,
       PartyB: shortcode,
       PhoneNumber: phone,
@@ -117,7 +117,7 @@ exports.createContributions = async (req, res) => {
       userId,
       projectId,
       project_name,
-      amount,
+      amount_paid,
       phone,
       checkoutRequestID: data.CheckoutRequestID,
       merchantRequestID: data.MerchantRequestID,
@@ -216,26 +216,37 @@ exports.callBack = async (req, res) => {
     payment.transaction_date = parsedDate;
     payment.amount_paid = amount;
 
-    await payment.save();
+       await payment.save();
 
-    // Deduct project remaining amount
-    const updatedProject = await Project.findByIdAndUpdate(
-      payment.projectId,
-      {
-        $inc: { remainingAmount: -amount }
-      },
-      { new: true }
-    );
+  // 1. Get project
+  const session = await mongoose.startSession();
+session.startTransaction();
 
-      if (!updatedProject) {
-        // rollback payment if deduction fails (optional but professional)
-        payment.status = "failed";
-        await payment.save();
+try {
+  const project = await Project.findById(payment.projectId).session(session);
 
-        return res.status(409).json({
-          message: "Project contribution exceeds remaining amount"
-        });
-      }    
+  const agg = await Payment.aggregate([
+    { $match: { projectId: project._id, status: "completed" } },
+    { $group: { _id: null, totalPaid: { $sum: "$amount_paid" } } }
+  ]).session(session);
+
+  const totalPaid = agg[0]?.totalPaid || 0;
+  const remainingAmount = project.amount - totalPaid;
+
+  await Project.findByIdAndUpdate(
+    project._id,
+    { remainingAmount, completed: remainingAmount <= 0 },
+    { session }
+  );
+
+  await session.commitTransaction();
+} catch (err) {
+  await session.abortTransaction();
+  throw err;
+} finally {
+  session.endSession();
+}
+ 
 
     return res.status(200).json({ message: "Payment completed" });
 

@@ -17,7 +17,7 @@ const paymentSchema = new mongoose.Schema(
       required: true
     },
     phone: String,
-    amount: {
+    amount_paid: {
       type: Number,
       required: true
     },

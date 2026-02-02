@@ -148,13 +148,19 @@ exports.getProjectRemainingAmount = async (req, res) => {
     return res.status(400).json({ message: "Invalid project id" });
   }
 
-  const project = await Project.findById(projectId).select("remainingAmount");
+  const project = await Project.findById(projectId).select("amount remainingAmount");
 
   if (!project) {
     return res.status(404).json({ message: "Project not found" });
   }
 
+  // Ensure remainingAmount is never undefined
+  const remainingAmount = project.remainingAmount ?? project.amount;
+
   return res.status(200).json({
-    remainingAmount: project.remainingAmount
+    amount: project.amount,
+    remainingAmount
   });
 };
+
+
