@@ -161,17 +161,18 @@ export default function ProjectDialog({ setProjects }) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Title */}
-          <div>
+          <div className="flex gap-1">
+            <div>
             <label className="text-lg font-medium text-gray-700">Title</label>
             <input
               type="text"
               required
-              className="w-full border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
+              className="w-full border-2 border-gray-300 rounded-lg p-1 focus:ring-2 focus:ring-blue-400"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-          </div>
-          <div>
+            </div>
+            <div>          
             <label className="text-lg font-medium text-gray-700">Amount</label>
             <input
               type="number"
@@ -180,17 +181,18 @@ export default function ProjectDialog({ setProjects }) {
               required
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
+              className="w-full border-2 border-gray-300 rounded-lg p-1 focus:ring-2 focus:ring-blue-400"
             />
+            </div>
           </div>
 
-          <div className="flex flex-wrap flex-row items-center justify-evenly gap-3">
+          <div className="flex flex-row items-center justify-evenly gap-3">
             <div className="flex flex-col items-center gap-2">
               <label className="text-lg font-medium text-gray-700">Begin</label>
               <input
                 type="date"
                 min={new Date().toISOString().split("T")[0]}
-                className="border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
+                className="border-2 border-gray-300 rounded-lg p-1 focus:ring-2 focus:ring-blue-400"
                 value={startDate}
                 required
                 onChange={(e) => setStartDate(e.target.value)}
@@ -202,7 +204,7 @@ export default function ProjectDialog({ setProjects }) {
                 type="date"
                 required
                 min={new Date().toISOString().split("T")[0]}
-                className="border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
+                className="border-2 border-gray-300 rounded-lg p-1 focus:ring-2 focus:ring-blue-400"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
               />
