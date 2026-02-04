@@ -5,7 +5,6 @@ import API from "@/service/api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import BackgroundSlider from "../backgroundimages/BackgroundSlider";
 
 export default function Signup({ switchToLogin }) {
   const [fname, setFname] = useState("");
@@ -125,9 +124,7 @@ export default function Signup({ switchToLogin }) {
   return (
     <>
       <div className="relative min-h-screen w-full">
-        {/* Background image */}
-        <BackgroundSlider className="absolute inset-0 w-full h-full object-cover" />
-
+              
         {/* Overlay */}
         <div className="absolute inset-0 z-10 bg-blue-300/50 flex items-center justify-center px-4">
           <div className="flex flex-col gap-4 items-center w-full max-w-lg animate__animated animate__zoomIn animate__delay-1s">
