@@ -69,7 +69,7 @@ export default function CornfirmEmail() {
       <div className="relative min-h-screen w-full">
       
         {/* Overlay */}
-        <div className="absolute inset-0 z-10 bg-blue-300/50 flex items-center justify-center px-4
+        <div className="absolute inset-0 z-10 flex items-center justify-center px-4
                 ">
           <div className="flex flex-col gap-4 items-center w-full max-w-lg animate__animated animate__zoomIn animate__delay-2s">
             {/* Header */}
