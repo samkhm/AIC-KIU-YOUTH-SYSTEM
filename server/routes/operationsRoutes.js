@@ -1,13 +1,30 @@
-const express = require("express")
-const { protect, authorize } = require("../middleware/auth")
-const { generateToken } = require("../middleware/pay_auth")
 const { createProject, getProjects, completeProject, deleteProject, updateProject, getProjectRemainingAmount } = require("../controllers/projectController")
 const { createEvent, getEvents, deleteEvent, updateEvent } = require("../controllers/eventsController")
 const { createAnnouncement, getAnnouncements, deleteAnnouncement, updateAnnouncement } = require("../controllers/annoncementsController")
 // const {} = require("../controllers/reportsController")
 const { getUsers, updateUserInfo, deleteUser, userLogedOut, getProfile, updateProfile } = require("../controllers/authUserController")
 const { createContributions, getContributions, callBack, getPaymentStatus, getPayments } = require("../controllers/payment")
+const {  createLibrary,
+  getLibraries,
+  getLibrary,
+  updateLibrary,
+  deleteLibrary, } = require("../controllers/libraryController");
 const upload = require('../middleware/uploads')
+const {
+  createGallery,
+  getGalleries,
+  getGalleryById,
+  getImageById,
+  deleteImage,
+  deleteGallery
+} = require("../controllers/galleryController.js");
+
+const uploadDocument = require("../middleware/documentupload");
+const { generateToken } = require("../middleware/pay_auth")
+const { protect, authorize } = require("../middleware/auth")
+const multer = require("multer")
+const uploadMany = multer({ dest: "uploads/" }); // temp storage before upload to cloud
+const express = require("express");
 const router = express.Router();
 
 router.get('/getUsers', protect, authorize("admin", "moderator"), getUsers)
@@ -51,6 +68,25 @@ router.get('/getProfile/:id', protect, getProfile)
 router.put('/updateProfile/:id', protect, updateProfile)
 
 
+router.post('/createLibrary', uploadDocument.single('file'), protect, authorize("admin", "moderator"), createLibrary)
+/* READ DOCUMENTS */
+router.get("/getLibraries", protect, getLibraries);            // all
+router.get("/getLibrary/:id", protect, getLibrary);           // single
 
+/* UPDATE DOCUMENT */
+router.put("/updateLibrary/:id", uploadDocument.single("file"), protect, authorize("admin", "moderator"), updateLibrary);
+
+/* DELETE DOCUMENT */
+router.delete("/deleteLibrary/:id", protect, authorize("admin", "moderator"), deleteLibrary);
+
+
+router.post("/createGallery", uploadMany.array("images"), protect, authorize("admin", "moderator"), createGallery);
+router.get("/getGalleries", getGalleries);
+router.get("/getGalleryById/:id", protect, authorize("admin", "moderator"), getGalleryById);
+router.get("/getImageById/:galleryId/image/:imageId", getImageById);
+
+// Delete routes
+router.delete("/deleteImage/:galleryId/image/:imageId", protect, authorize("admin", "moderator"), deleteImage);
+router.delete("/deleteGallery/:galleryId", protect, authorize("admin", "moderator"), deleteGallery);
 
 module.exports = router;

@@ -63,7 +63,7 @@ export default function ProjectDialog({ setProjects }) {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
-      formData.append("amount", amount)
+      formData.append("amount", amount);
       formData.append("startDate", startDate);
       formData.append("endDate", endDate);
       if (image) formData.append("image", image);
@@ -73,7 +73,7 @@ export default function ProjectDialog({ setProjects }) {
         onUploadProgress: (progressEvent) => {
           if (!progressEvent.total) return;
           const percent = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
+            (progressEvent.loaded * 100) / progressEvent.total,
           );
           setUploadProgress(percent);
         },
@@ -90,7 +90,7 @@ export default function ProjectDialog({ setProjects }) {
       setStartDate("");
       setEndDate("");
       setContent("");
-      setAmount("")
+      setAmount("");
       setImage(null);
       setImagePreview(null);
       setUploadProgress(0);
@@ -163,26 +163,28 @@ export default function ProjectDialog({ setProjects }) {
           {/* Title */}
           <div className="flex gap-1">
             <div>
-            <label className="text-lg font-medium text-gray-700">Title</label>
-            <input
-              type="text"
-              required
-              className="w-full border-2 border-gray-300 rounded-lg p-1 focus:ring-2 focus:ring-blue-400"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
+              <label className="text-lg font-medium text-gray-700">Title</label>
+              <input
+                type="text"
+                required
+                className="w-full border-2 border-gray-300 rounded-lg p-1 focus:ring-2 focus:ring-blue-400"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
-            <div>          
-            <label className="text-lg font-medium text-gray-700">Amount</label>
-            <input
-              type="number"
-              min="1"
-              step="1"
-              required
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              className="w-full border-2 border-gray-300 rounded-lg p-1 focus:ring-2 focus:ring-blue-400"
-            />
+            <div>
+              <label className="text-lg font-medium text-gray-700">
+                Amount
+              </label>
+              <input
+                type="number"
+                min="1"
+                step="1"
+                required
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="w-full border-2 border-gray-300 rounded-lg p-1 focus:ring-2 focus:ring-blue-400"
+              />
             </div>
           </div>
 

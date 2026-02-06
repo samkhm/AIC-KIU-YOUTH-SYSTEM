@@ -30,8 +30,8 @@ export default function Sidebar({ activeSection, setActiveSection }) {
         
           <span
           onClick={() => setOpen(true)}
-           className="fixed top-20 left-3 z-50 cursor-pointer bg-blue-500 text-white bold p-1
-           lg:hidden border-2 border-blue-600 rounded
+           className="fixed top-20 left-3 z-50 cursor-pointer bg-green-500 text-white bold p-1
+           lg:hidden border-2 border-white rounded
            animate__animated animate__tada animate__infinite animate__slower
            ">Menu</span>
       )}

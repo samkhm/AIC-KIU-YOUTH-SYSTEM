@@ -8,6 +8,7 @@ import Finance from "../components/sections/Finance"
 import Gallery from "../components/sections/Gallery"
 import Profile from '@/pages/userDashboard/components/sections/Profile'
 import ProjectsUser from '@/pages/userDashboard/components/sections/Projects'
+import Library from './sections/Library'
 
 export default function Main({ activeSection, allUsersCount, users, errorLoadingUser, loadingUser, 
   updateUser, loadingUserUpdate, message, messageType, deleteUser, loadDelUser  }) {
@@ -33,7 +34,10 @@ export default function Main({ activeSection, allUsersCount, users, errorLoading
       break;
     case 'gallery' :
       content = <div> <Gallery/> </div>
-      break;    
+      break;   
+    case 'library':
+      content = <div> <Library/> </div>
+      break; 
     case 'users':
       content = <div> <Users users={users} loadingUser={loadingUser} 
       updateUser={updateUser} loadingUserUpdate={loadingUserUpdate} message={message} messageType={messageType}
