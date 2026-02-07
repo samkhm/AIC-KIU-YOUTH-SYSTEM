@@ -63,7 +63,8 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen flex justify-center px-4 py-8">
-      <div className="w-full max-w-2xl bg-white rounded-xl shadow-md p-6">
+      <div className="w-full max-w-2xl h-fit bg-white rounded-xl shadow-md p-6">
+      
         
         {/* Header */}
         <h3 className="text-2xl font-semibold text-center border-b pb-3 text-green-700">
@@ -84,10 +85,17 @@ export default function Profile() {
         )}
 
         {/* Form */}
+        {/* <div className="max-h-64  overflow-y-auto w-full"></div> */}
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 animate__animated animate__zoomIn animate__delay-1s"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 
+          animate__animated animate__zoomIn animate__delay-1s
+          max-h-64  overflow-y-auto
+          "
         >
+
+          
+           
           {/* Username */}
           <div>
             <label className="text-sm font-medium">Username</label>
@@ -153,6 +161,7 @@ export default function Profile() {
               }
             />
           </div>
+          
 
           {/* Submit */}
           <div className="sm:col-span-2 flex justify-center mt-4">
