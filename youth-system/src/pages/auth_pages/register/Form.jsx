@@ -44,7 +44,7 @@ export default function Form({
          
 
           {/* First & Last Name */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="flex flex-row gap-3">
             <div>
               <label className="text-sm font-medium ">First Name</label>
               <input
@@ -105,7 +105,7 @@ export default function Form({
           </div>
 
           {/* Passwords */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="flex flex-row gap-3">
             <div className="flex flex-col w-full">
               <label className="text-sm font-medium">Password</label>
               <div className="relative w-full">
