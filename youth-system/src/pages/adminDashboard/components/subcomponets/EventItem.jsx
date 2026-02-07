@@ -114,6 +114,7 @@ export default function EventItem({ event, setEvents }) {
             <p>{event.content}</p>
 
             <DialogFooter className="flex justify-center gap-10 items-center">
+              
               <button
                 onClick={openEdit}
                 className="p-3 border rounded-full hover:border-green-500"
@@ -130,6 +131,9 @@ export default function EventItem({ event, setEvents }) {
                   onClick={deleteEvent}
                 />
               )}
+              
+              
+              <DialogClose>Close</DialogClose>
             </DialogFooter>
           </>
         )}
@@ -148,7 +152,9 @@ export default function EventItem({ event, setEvents }) {
               </p>
             )}
 
+           
             <form onSubmit={updateEvent} className="space-y-4">
+            <div className="max-h-64  overflow-y-auto flex flex-col gap-2">             
               <input
                 value={title}
                 onChange={e => setTitle(e.target.value)}
@@ -168,7 +174,7 @@ export default function EventItem({ event, setEvents }) {
                 onChange={e => setContent(e.target.value)}
                 className="w-full border p-2 rounded"
               />
-
+          </div>
               <DialogFooter className="flex justify-end gap-3">
                 <Button type="submit" disabled={loadingUp}>
                   {loadingUp ? "Updating..." : "Update"}
@@ -179,9 +185,12 @@ export default function EventItem({ event, setEvents }) {
                 </Button>
               </DialogFooter>
             </form>
+            
+
           </>
         )}
       </DialogContent>
+      
     </Dialog>
   )
 }

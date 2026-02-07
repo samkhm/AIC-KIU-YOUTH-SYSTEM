@@ -138,6 +138,7 @@ import {
           )}
   
           <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="max-h-64  overflow-y-auto">
             {/* Title */}
             <div className="flex gap-1">
               <div className="w-full">
@@ -168,7 +169,8 @@ import {
             {imagePreviews.length > 0 && (
               <div className="mt-2">
                 <p className="text-sm text-gray-500 mb-1">Preview</p>
-                <div className="flex flex-wrap items-center justify-center gap-2 max-h-64 overflow-y-auto p-1 border rounded">
+                <div className="flex flex-wrap items-center justify-center gap-2 max-h-64
+                 overflow-y-auto p-1 border rounded">
                   {imagePreviews.map((url, idx) => (
                     <img
                       key={idx}
@@ -195,6 +197,8 @@ import {
                 </p>
               </div>
             )}
+          </div>
+
   
             <div className="flex justify-end gap-2 pt-4">
               <button

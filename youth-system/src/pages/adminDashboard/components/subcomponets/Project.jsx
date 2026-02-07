@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
-import Box from "../subcomponets/Box"
-import { FaTrash, FaEdit } from "react-icons/fa"
+import React, { useEffect, useState } from "react";
+import Box from "../subcomponets/Box";
+import { FaTrash, FaEdit } from "react-icons/fa";
 import {
   Dialog,
   DialogContent,
@@ -8,191 +8,202 @@ import {
   DialogTrigger,
   DialogHeader,
   DialogTitle,
-  DialogFooter
-} from "@/components/ui/dialog"
-import { DialogClose } from "@radix-ui/react-dialog"
-import { Button } from "@/components/ui/button"
-import API from "@/service/api"
-import { TailSpin } from "react-loader-spinner"
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { Button } from "@/components/ui/button";
+import API from "@/service/api";
+import { TailSpin } from "react-loader-spinner";
 
 export default function Project({ project, setProjects }) {
-  const [mode, setMode] = useState("view") // view | edit
+  const [mode, setMode] = useState("view"); // view | edit
 
-  const [title, setTitle] = useState("")
-  const [content, setContent] = useState("")
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
-  const [image, setImage] = useState(null)
-  const [imagePreview, setImagePreview] = useState(null)
+  const [title, setTitle] = useState("");
+  const [amount, setAmount] = useState("");
+  const [content, setContent] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  const [message, setMessage] = useState("")
-  const [messageType, setMessageType] = useState("")
-  const [loadUp, setLoadUp] = useState(false)
-  const [loadDel, setLoadDel] = useState(false)
-  const [uploadProgress, setUploadProgress] = useState(0)
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [loadUp, setLoadUp] = useState(false);
+  const [loadDel, setLoadDel] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const clearMessages = () => {
-    setMessage("")
-    setMessageType("")
-  }
+    setMessage("");
+    setMessageType("");
+  };
 
   // Auto-clear feedback messages
   useEffect(() => {
-    if (!message) return
-    const timer = setTimeout(clearMessages, 3000)
-    return () => clearTimeout(timer)
-  }, [message])
+    if (!message) return;
+    const timer = setTimeout(clearMessages, 3000);
+    return () => clearTimeout(timer);
+  }, [message]);
 
   // Cleanup image preview URL
   useEffect(() => {
     return () => {
-      if (imagePreview) URL.revokeObjectURL(imagePreview)
-    }
-  }, [imagePreview])
+      if (imagePreview) URL.revokeObjectURL(imagePreview);
+    };
+  }, [imagePreview]);
 
   const handleImageChange = (e) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-    setImage(file)
-    const previewUrl = URL.createObjectURL(file)
-    setImagePreview(previewUrl)
-  }
+    setImage(file);
+    const previewUrl = URL.createObjectURL(file);
+    setImagePreview(previewUrl);
+  };
 
   const openEdit = () => {
-    setMode("edit")
-    setTitle(project.title || "")
-    setContent(project.content || "")
+    setMode("edit");
+    setTitle(project.title || "");
+    setAmount(project.amount || "");
+    setContent(project.content || "");
 
     setStartDate(
-      project.startDate ? new Date(project.startDate).toISOString().split("T")[0] : ""
-    )
+      project.startDate
+        ? new Date(project.startDate).toISOString().split("T")[0]
+        : "",
+    );
     setEndDate(
-      project.endDate ? new Date(project.endDate).toISOString().split("T")[0] : ""
-    )
+      project.endDate
+        ? new Date(project.endDate).toISOString().split("T")[0]
+        : "",
+    );
 
-    setImage(null)
-    setImagePreview(null)
-    setUploadProgress(0)
-    clearMessages()
-  }
+    setImage(null);
+    setImagePreview(null);
+    setUploadProgress(0);
+    clearMessages();
+  };
 
   const updateProject = async (id) => {
-    setLoadUp(true)
-    setUploadProgress(0)
+    setLoadUp(true);
+    setUploadProgress(0);
 
     try {
-      const formData = new FormData()
-      formData.append("title", title)
-      formData.append("content", content)
-      formData.append("startDate", startDate)
-      formData.append("endDate", endDate)
-      if (image) formData.append("image", image)
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("amount", amount);
+      formData.append("content", content);
+      formData.append("startDate", startDate);
+      formData.append("endDate", endDate);
+      if (image) formData.append("image", image);
 
       const res = await API.put(`/tasks/updateProject/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: (progressEvent) => {
-          if (!progressEvent.total) return
+          if (!progressEvent.total) return;
           const percent = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          )
-          setUploadProgress(percent)
-        }
-      })
+            (progressEvent.loaded * 100) / progressEvent.total,
+          );
+          setUploadProgress(percent);
+        },
+      });
 
       const updated = res.data?.project || {
         title,
+        amount,
         content,
         startDate,
-        endDate
-      }
+        endDate,
+      };
 
       setProjects((prev) =>
-        prev.map((p) => (p._id === id ? { ...p, ...updated } : p))
-      )
+        prev.map((p) => (p._id === id ? { ...p, ...updated } : p)),
+      );
 
-      setMessage(res.data?.message || "Updated successfully!")
-      setMessageType("success")
-      setMode("view")
+      setMessage(res.data?.message || "Updated successfully!");
+      setMessageType("success");
+      setMode("view");
 
       // reset edit-only states
-      setImage(null)
-      setImagePreview(null)
-      setUploadProgress(0)
+      setImage(null);
+      setImagePreview(null);
+      setUploadProgress(0);
     } catch (error) {
-      const msg = error.response?.data?.message || "Failed to update project"
-      setMessage(msg)
-      setMessageType("error")
+      const msg = error.response?.data?.message || "Failed to update project";
+      setMessage(msg);
+      setMessageType("error");
     } finally {
-      setLoadUp(false)
+      setLoadUp(false);
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    clearMessages()
+    e.preventDefault();
+    clearMessages();
 
     if (!title.trim() || !content.trim()) {
-      setMessage("Title and content are required")
-      setMessageType("error")
-      return
+      setMessage("Title and content are required");
+      setMessageType("error");
+      return;
     }
 
     if (!startDate || !endDate) {
-      setMessage("Start & end dates are required")
-      setMessageType("error")
-      return
+      setMessage("Start & end dates are required");
+      setMessageType("error");
+      return;
     }
 
     if (endDate < startDate) {
-      setMessage("End date can't be before start date")
-      setMessageType("error")
-      return
+      setMessage("End date can't be before start date");
+      setMessageType("error");
+      return;
+    }
+    if (!amount || amount <= 0) {
+      setMessage("Contribution amount must be greater than 0");
+      setMessageType("error");
+      return;
     }
 
-    await updateProject(project._id)
-  }
+    await updateProject(project._id);
+  };
 
   const deleteProject = async () => {
-    setLoadDel(true)
-    clearMessages()
+    setLoadDel(true);
+    clearMessages();
 
     try {
-      await API.delete(`/tasks/deleteProject/${project._id}`)
-      setProjects((prev) => prev.filter((p) => p._id !== project._id))
-      setMessage("Project deleted successfully")
-      setMessageType("success")
+      await API.delete(`/tasks/deleteProject/${project._id}`);
+      setProjects((prev) => prev.filter((p) => p._id !== project._id));
+      setMessage("Project deleted successfully");
+      setMessageType("success");
     } catch (error) {
-      const msg = error.response?.data?.message || "Delete failed"
-      setMessage(msg)
-      setMessageType("error")
+      const msg = error.response?.data?.message || "Delete failed";
+      setMessage(msg);
+      setMessageType("error");
     } finally {
-      setLoadDel(false)
+      setLoadDel(false);
     }
-  }
+  };
 
   const formatDate = (d) => {
-    if (!d) return ""
-    return new Date(d).toLocaleDateString("en-GB")
-  }
+    if (!d) return "";
+    return new Date(d).toLocaleDateString("en-GB");
+  };
 
-  const toggleComplete = async (id, e) =>{
-       
-   
+  const toggleComplete = async (id, e) => {
     const newCompleted = e.target.checked;
 
     try {
       const res = await API.put(`/tasks/completeProject/${id}`, {
         completed: newCompleted,
-      })
+      });
 
-      setProjects(prev => prev.map(p => p._id === id ? res.data?.project : p))
-      
+      setProjects((prev) =>
+        prev.map((p) => (p._id === id ? res.data?.project : p)),
+      );
     } catch (error) {
-      console.log("Faled to complete", error)
-      
+      console.log("Faled to complete", error);
     }
-  }
+  };
 
   return (
     <Dialog>
@@ -240,6 +251,7 @@ export default function Project({ project, setProjects }) {
               </DialogTitle>
             </DialogHeader>
 
+            <div className="max-h-64  overflow-y-auto">
             <div className="flex flex-col border-l-4 rounded border-blue-500 p-2 gap-2">
               <span className="text-sm text-gray-500">
                 <strong>Time frame</strong>
@@ -262,6 +274,8 @@ export default function Project({ project, setProjects }) {
                 {project.content}
               </p>
             </DialogDescription>
+            </div>
+
 
             <DialogFooter>
               <div className="flex items-center justify-between p-2 w-full">
@@ -273,7 +287,12 @@ export default function Project({ project, setProjects }) {
                   <FaEdit color="green" />
                 </button>
 
-                <input type="checkbox" checked={project.completed} className="w-5 h-5" onChange={(e) => toggleComplete(project._id, e)}/>
+                <input
+                  type="checkbox"
+                  checked={project.completed}
+                  className="w-5 h-5"
+                  onChange={(e) => toggleComplete(project._id, e)}
+                />
 
                 {loadDel ? (
                   <TailSpin height={18} width={18} />
@@ -310,33 +329,57 @@ export default function Project({ project, setProjects }) {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Title */}
-              <div>
-                <label className="text-lg font-medium text-gray-700">Title</label>
-                <input
-                  type="text"
-                  className="w-full border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
+              <div className="max-h-64  overflow-y-auto">
+              <div className="flex flex-row gap-1">
+                <div>
+                  <label className="text-lg font-medium text-gray-700">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full border-2 border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-400"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </div>
+
+                <div>
+                  <label className="text-lg font-medium text-gray-700">
+                    Amount
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    step="1"
+                    required
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    className="w-full border-2 border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-400"
+                  />
+                </div>
               </div>
 
               {/* Dates */}
-              <div className="flex flex-wrap flex-row items-center justify-evenly gap-3">
-                <div className="flex flex-col items-center gap-2">
-                  <label className="text-lg font-medium text-gray-700">Begin</label>
+              <div className="flex flex-wrap flex-row items-center justify-evenly gap-1">
+                <div className="flex flex-col items-center gap-1">
+                  <label className="text-lg font-medium text-gray-700">
+                    Begin
+                  </label>
                   <input
                     type="date"
-                    className="border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
+                    className="border-2 border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-400"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                   />
                 </div>
 
-                <div className="flex flex-col items-center gap-2">
-                  <label className="text-lg font-medium text-gray-700">End</label>
+                <div className="flex flex-col items-center gap-1">
+                  <label className="text-lg font-medium text-gray-700">
+                    End
+                  </label>
                   <input
                     type="date"
-                    className="border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
+                    className="border-2 border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-400"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
                   />
@@ -345,9 +388,11 @@ export default function Project({ project, setProjects }) {
 
               {/* Content */}
               <div>
-                <label className="text-lg font-medium text-gray-700">Content</label>
+                <label className="text-lg font-medium text-gray-700">
+                  Content
+                </label>
                 <textarea
-                rows={2}
+                  rows={2}
                   type="text"
                   className="w-full border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400"
                   value={content}
@@ -357,7 +402,9 @@ export default function Project({ project, setProjects }) {
 
               {/* Image Upload */}
               <div>
-                <label className="text-lg font-medium text-gray-700">Image</label>
+                <label className="text-lg font-medium text-gray-700">
+                  Image
+                </label>
                 <input
                   type="file"
                   accept="image/*"
@@ -391,6 +438,9 @@ export default function Project({ project, setProjects }) {
                 </div>
               )}
 
+             </div>    
+
+                 {/* buttons */}
               <div className="flex justify-end gap-2 pt-4">
                 <button
                   type="submit"
@@ -408,7 +458,6 @@ export default function Project({ project, setProjects }) {
                 >
                   Cancel
                 </Button>
-               
               </div>
             </form>
           </>
@@ -420,5 +469,5 @@ export default function Project({ project, setProjects }) {
         </DialogClose>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

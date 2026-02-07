@@ -237,6 +237,7 @@ export default function ProjectItem({ project }) {
               </DialogTitle>
             </DialogHeader>
 
+            <div className="max-h-64  overflow-y-auto">
             <div className="flex flex-col border-l-4 rounded border-blue-500 p-2 gap-2">
               <span className="text-sm text-gray-500">
                 <strong>Time frame</strong>
@@ -259,6 +260,7 @@ export default function ProjectItem({ project }) {
                 {project.content}
               </p>
             </DialogDescription>
+            </div>
 
             <DialogFooter>
               <div className="flex justify-between w-full">
@@ -286,25 +288,26 @@ export default function ProjectItem({ project }) {
                     remainingAmount === null
                       ? "text-gray-500"
                       : remainingAmount < 0
-                      ? "text-red-600"
-                      : remainingAmount === 0
-                      ? "text-blue-600"
-                      : "text-green-600"
+                        ? "text-red-600"
+                        : remainingAmount === 0
+                          ? "text-blue-600"
+                          : "text-green-600"
                   }`}
                 >
                   {remainingAmount === null
                     ? "Start contribution"
                     : remainingAmount < 0
-                    ? `Overpaid by: Kes. ${Math.abs(remainingAmount)}`
-                    : remainingAmount === 0
-                    ? "Fully funded!"
-                    : `Remaining: Kes. ${remainingAmount}`}
+                      ? `Overpaid by: Kes. ${Math.abs(remainingAmount)}`
+                      : remainingAmount === 0
+                        ? "Fully funded!"
+                        : `Remaining: Kes. ${remainingAmount}`}
                 </label>
               </div>
             </DialogHeader>
 
             {message && <p className={`text-sm ${messageColor}`}>{message}</p>}
 
+            <div className="max-h-64  overflow-y-auto">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="text-lg font-medium text-gray-700">
@@ -330,8 +333,8 @@ export default function ProjectItem({ project }) {
                   {loading
                     ? "Initiating..."
                     : isPolling
-                    ? "Waiting for confirmation..."
-                    : "Pay"}
+                      ? "Waiting for confirmation..."
+                      : "Pay"}
                 </button>
 
                 <Button
@@ -345,7 +348,7 @@ export default function ProjectItem({ project }) {
               </div>
             </form>
 
-            <div className="bg-gray-200 rounded border-l-2 border-blue-600 p-4">
+            <div className="bg-gray-200 rounded border-l-2 border-blue-600 p-4 mt-2">
               <h3 className="w-full flex items-center justify-center border-b border-yellow-400 p-1">
                 Your contributions for this project
               </h3>
@@ -354,6 +357,8 @@ export default function ProjectItem({ project }) {
                 projectId={project._id}
               />
             </div>
+            </div>
+
           </>
         )}
 
