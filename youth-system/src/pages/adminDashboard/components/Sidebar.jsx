@@ -25,31 +25,31 @@ export default function Sidebar({ activeSection, setActiveSection }) {
   };
 
   const menuItems = [
-    { id: "home", name: "Home", icon: <IoHomeOutline /> },
-    { id: "users", name: "Users", icon: <IoPeopleOutline /> },
-    { id: "announcements", name: "News", icon: <IoAlertCircleOutline /> },
-    { id: "events", name: "Events", icon: <IoCalendarOutline /> },
-    { id: "projects", name: "Projects", icon: <IoDocumentTextOutline /> },
+    { id: "home", name: "Home", icon: "🏡" },
+    { id: "users", name: "Users", icon: "👥" },
+    { id: "announcements", name: "News", icon: "📢" },
+    { id: "events", name: "Events", icon: "🗓️" },
+    { id: "projects", name: "Projects", icon: "🅿️" },
     //this is adrop down
     {
       name: "Finance",
-      icon: <IoCashOutline />,
+      icon: "💴",
       children: [
         { id: "pay", name: "My Pay", icon: <IoCashOutline /> },
-        { id: "finance", name: "Finance", icon: <IoCashOutline /> },
+        { id: "finance", name: "Finance", icon: "💸" },
       ],
     },
     //this is a drop down menu
     {
       name: "Media",
-      icon: <IoImageOutline />,
+      icon: "📽️",
       children: [
-        { id: "gallery", name: "Gallery", icon: <IoImageOutline /> },
-        { id: "library", name: "Library", icon: <IoBook /> },
+        { id: "gallery", name: "Gallery", icon: "📸" },
+        { id: "library", name: "Library", icon: "📚" },
       ],
     },
 
-    { id: "profile", name: "Profile", icon: <IoPerson /> },
+    { id: "profile", name: "Profile", icon: "🧑🏾" },
   ];
 
   return (
