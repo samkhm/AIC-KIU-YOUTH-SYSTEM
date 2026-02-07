@@ -2,9 +2,11 @@ import React from 'react'
 import Admins from '../subcomponets/Admins'
 import RegisteredYouths from '../subcomponets/RegisteredYouths'
 import SuperAdmins from '../subcomponets/SuperAdmins'
+import { getUserRole } from '@/utils/auth'
 
 export default function Users({ users, loadingUser, updateUser, loadingUserUpdate, message,
   messageType, deleteUser, loadDelUser }) {
+    const userRole = getUserRole()
   return (
     <div className="border-l-2 rounded p-4 m-2 md:m-5 flex flex-col flex-1 min-h-0 ">
 
@@ -26,18 +28,23 @@ export default function Users({ users, loadingUser, updateUser, loadingUserUpdat
 
     {/* Super Admins */}
       
+    {
+      userRole === "moderator" && (
+        <SuperAdmins
+        users={users}
+        loadingUser={loadingUser}
+        loadingUserUpdate={loadingUserUpdate}
+        updateUser={updateUser}
+        message={message}
+        messageType={messageType}
+        deleteUser={deleteUser}
+      />
 
+      )
+    }
 
         
-          <SuperAdmins
-            users={users}
-            loadingUser={loadingUser}
-            loadingUserUpdate={loadingUserUpdate}
-            updateUser={updateUser}
-            message={message}
-            messageType={messageType}
-            deleteUser={deleteUser}
-          />
+         
         
 
      
