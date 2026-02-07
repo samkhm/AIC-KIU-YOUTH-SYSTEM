@@ -78,7 +78,7 @@ exports.getProjects = async (req, res) => {
 exports.updateProject = async (req, res) => {
   try {
     const { id } = req.params
-    const { title, content, startDate, endDate } = req.body || {}
+    const { title, content, amount, startDate, endDate } = req.body || {}
 
     if (!title || !content || !startDate || !endDate) {
       return res.status(400).json({ message: "All details required" })
@@ -89,7 +89,7 @@ exports.updateProject = async (req, res) => {
       return res.status(404).json({ message: "Project not found" })
     }
 
-    const updateData = { title, content, startDate, endDate }
+    const updateData = { title, content, amount, startDate, endDate }
 
     // ✅ If a new image was uploaded, Multer already sent it to Cloudinary
     if (req.file) {
