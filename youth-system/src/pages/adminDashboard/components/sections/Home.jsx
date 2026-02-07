@@ -8,7 +8,7 @@ export default function Home({ allUsersCount, users }) {
       <div className='flex flex-wrap items-center justify-evenly gap-3 border-b-2 border-gray-400 pb-2'>
         <Item allUsersCount={allUsersCount} users={users} />
       </div>
-      <div className='flex flex-row items-center flex-wrap gap-5 p-5 mt-5 '>
+      <div className='flex flex-row items-center flex-wrap gap-5 p-5 mt-5 max-h-[70vh] overflow-y-auto scrollbar-hide'>
         <div className='flex flex-col items-center w-full'>
           <h4 className='text-xl italic border-b w-fit'>Top 10 frequently system users</h4>
           <div className='flex items-center justify-center flex-1 w-full'>
