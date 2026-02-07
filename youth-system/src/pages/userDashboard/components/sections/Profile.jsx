@@ -90,7 +90,7 @@ export default function Profile() {
           onSubmit={handleSubmit}
           className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 
           animate__animated animate__zoomIn animate__delay-1s
-          max-h-64  overflow-y-auto
+          max-h-64  overflow-y-auto scrollbar-hide
           "
         >
 

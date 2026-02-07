@@ -40,7 +40,7 @@ export default function Events() {
 
       <div
         className=" flex flex-row flex-wrap justify-center items-start bg-gray-200 
-      p-5 gap-5 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200
+      p-5 gap-5 overflow-y-auto scrollbar-hide
       animate__animated animate__zoomIn animate__delay-1s"
       >
         {loadEvents ? (

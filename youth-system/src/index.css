@@ -141,3 +141,13 @@ body::before {
   background-color: rgba(147, 197, 253, 0.5); /* bg-blue-300/50 */
   z-index: -1;
 }
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari */
+}

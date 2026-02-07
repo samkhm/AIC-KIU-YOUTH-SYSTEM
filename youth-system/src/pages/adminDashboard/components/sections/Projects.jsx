@@ -6,7 +6,6 @@ import API from "@/service/api";
 import { useEffect } from "react";
 import { CircularProgress } from "react-loader-spinner";
 
-
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [loadPj, setLoadPj] = useState(false);
@@ -40,14 +39,14 @@ export default function Projects() {
       {/* Scrollable project list */}
       <div
         className=" flex flex-row flex-wrap justify-center items-start 
-      gap-5 p-5 bg-gray-200 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200
+      gap-5 p-5 bg-gray-200 overflow-y-auto scrollbar-hide
       animate__animated animate__zoomIn animate__delay-1s"
       >
         {/* Multiple Project components */}
         {loadPj ? (
           <div className="w-full flex items-center justify-center">
-          <CircularProgress/>
-        </div>
+            <CircularProgress />
+          </div>
         ) : projects.length === 0 ? (
           <div>No projects saved</div>
         ) : (

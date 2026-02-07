@@ -64,7 +64,7 @@ export default function BibleStory() {
   }, []);
 
   return (
-    <div className="story-container animate__animated animate__zoomIn animate__delay-2s">
+    <div className="story-container animate__animated animate__zoomIn animate__delay-1s">
       <Box>
         <h3
           className={`font-semibold text-lg mb-2 border-b flex items-center justify-center ${
@@ -75,7 +75,7 @@ export default function BibleStory() {
         </h3>
 
         <p
-          className={`p-2 h-64 overflow-y-auto fade ${
+          className={`p-2 h-64 overflow-y-auto scrollbar-hiden fade ${
             fade ? "in" : "out"
           }`}
         >

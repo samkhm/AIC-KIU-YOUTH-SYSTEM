@@ -33,7 +33,8 @@ export default function Projects() {
         Projects
       </h3>
 
-      <div className="p-3 w-full flex gap-5 flex-wrap animate__animated animate__zoomIn animate__delay-1s">
+      <div className="p-3 w-full flex gap-5 flex-wrap animate__animated animate__zoomIn animate__delay-1s
+      max-h-[70vh] overflow-y-auto scrollbar-hide">
         {loading && 
          <div className="w-full flex items-center justify-center">
          <CircularProgress/>

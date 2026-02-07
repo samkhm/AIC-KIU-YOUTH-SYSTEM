@@ -30,7 +30,9 @@ export default function Events() {
           Events
         </h3>
 
-        <div className="p-3 w-full flex gap-5 flex-wrap animate__animated animate__zoomIn animate__delay-1s">
+        <div className="p-3 w-full flex gap-5 flex-wrap 
+        max-h-[70vh] overflow-y-auto scrollbar-hide
+        animate__animated animate__zoomIn animate__delay-1s">
           {loading && 
           <div className="w-full flex items-center justify-center">
           <CircularProgress/>

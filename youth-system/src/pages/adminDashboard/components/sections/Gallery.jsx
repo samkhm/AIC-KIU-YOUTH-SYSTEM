@@ -52,7 +52,8 @@ export default function Gallery() {
         ) : gallery.length === 0 ? (
           <p>No galleries found.</p>
         ) : (
-          <div className="space-y-6 max-h-[70vh] overflow-y-auto animate__animated animate__zoomIn animate__delay-1s">
+          <div className="space-y-6 max-h-[70vh] overflow-y-auto scrollbar-hide
+          animate__animated animate__zoomIn animate__delay-1s">
             {gallery.map((g) => (
               <GalleryCard key={g._id} gallery={g} setGallery={setGallery} />
             ))}

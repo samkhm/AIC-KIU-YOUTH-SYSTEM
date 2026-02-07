@@ -3,9 +3,7 @@ import AnnouncementItem from "../subsections/AnnouncementItem";
 import { useState } from "react";
 import { useEffect } from "react";
 import API from "@/service/api";
-import CircularProgress from "@mui/material/CircularProgress"
-
-
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Announcements() {
   const [news, setNews] = useState([]);
@@ -32,13 +30,15 @@ export default function Announcements() {
         <h3 className="border-b border-blue-200 p-2 w-1/2 flex justify-center">
           Announcements
         </h3>
-        <div className="p-3 flex flex-1 w-full items-center gap-5 flex-wrap animate__animated animate__zoomIn animate__delay-1s">
+        <div className="p-3 flex flex-1 w-full items-center gap-5 flex-wrap 
+        max-h-[70vh] overflow-y-auto scrollbar-hide
+        animate__animated animate__zoomIn animate__delay-1s">
           {loading ? (
             <div className="w-full flex items-center justify-center">
-              <CircularProgress/>
+              <CircularProgress />
             </div>
           ) : news.length === 0 ? (
-            <p>No announcements. Check later</p>            
+            <p>No announcements. Check later</p>
           ) : (
             news.map((an) => (
               <AnnouncementItem key={an._id} announcement={an} />

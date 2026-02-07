@@ -42,7 +42,7 @@ export default function Library() {
       </div>
 
       <div className='w-full animate__animated animate__zoomIn animate__dalay-1s
-      overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200'>
+      overflow-y-auto scrollbar-hide'>
 
         {
           loading ? (
