@@ -147,7 +147,7 @@ export default function RegisteredYouths({
               <th className="px-3 py-2 text-center">Email</th>
               <th className="px-3 py-2 text-center">Phone</th>
               <th className="px-3 py-2 text-center">Role</th>
-              <th className="px-3 py-2 text-center">Status</th>
+              {/* <th className="px-3 py-2 text-center">Status</th> */}
               <th className="px-3 py-2 text-center">Edit</th>
               <th className="px-3 py-2 text-center">Delete</th>
             </tr>
@@ -179,11 +179,11 @@ export default function RegisteredYouths({
                       {user.role}
                     </span>
                   </td>
-                  <td className="px-3 py-2 text-center">
+                  {/* <td className="px-3 py-2 text-center">
                     <span className={`px-2 py-1 rounded bg-green-400 border rounded border-yellow-430 ${ user.status ? "text-white" : ""}`}>
                       {user.status ? "Active" : "Inactive"}
                     </span>
-                  </td>
+                  </td> */}
 
                   <td className="px-3 py-2 text-center">
                     <Dialog>

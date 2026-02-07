@@ -125,9 +125,9 @@ export default function Admins({
                   <th className="px-2 sm:px-3 py-2 text-center min-w-[80px]">
                     Role
                   </th>
-                  <th className="px-2 sm:px-3 py-2 text-center min-w-[80px]">
+                  {/* <th className="px-2 sm:px-3 py-2 text-center min-w-[80px]">
                     Status
-                  </th>
+                  </th> */}
                   <th className="px-2 sm:px-3 py-2 text-center min-w-[60px]">
                     Edit
                   </th>
@@ -173,13 +173,13 @@ export default function Admins({
                           {admin.role}
                         </span>
                       </td>
-                      <td className="px-2 sm:px-3 py-2 text-center">
+                      {/* <td className="px-2 sm:px-3 py-2 text-center">
                         <span
                           className={`px-2 py-1 rounded bg-green-400 border rounded border-yellow-430 ${ admin.status ? "text-white" : ""}`}
                         >
                           {admin.status ? "Active" : "Inactive"}
                         </span>
-                      </td>
+                      </td> */}
 
                       {/* Edit button */}
                       <td className="px-2 sm:px-3 py-2 text-center min-w-[60px]">

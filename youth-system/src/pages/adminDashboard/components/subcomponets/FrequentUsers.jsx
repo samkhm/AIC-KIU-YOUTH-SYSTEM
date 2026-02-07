@@ -39,7 +39,7 @@ export default function FrequentUsers() {
           <th className="px-3 py-2 text-center whitespace-nowrap">First Name</th>
           <th className="px-3 py-2 text-center whitespace-nowrap">Last Name</th>
           <th className="px-3 py-2 text-center whitespace-nowrap">Count</th>
-          <th className="px-3 py-2 text-center whitespace-nowrap">Status</th>
+          {/* <th className="px-3 py-2 text-center whitespace-nowrap">Status</th> */}
         </tr>
       </thead>
       <tbody >
@@ -58,11 +58,11 @@ export default function FrequentUsers() {
               <td className="px-3 py-2 text-center">{u.fname}</td>
               <td className="px-3 py-2 text-center">{u.lname}</td>
               <td className="px-3 py-2 text-center font-medium">{u.count}</td>
-              <td className={`px-3 py-2 text-center ${
+              {/* <td className={`px-3 py-2 text-center ${
                 u.status ? 'bg-green-300' : 'bg-red-300'
               }`}>
                 {u.status ? 'Active' : 'Inactive'}
-              </td>
+              </td> */}
             </tr>
           ))
         )}

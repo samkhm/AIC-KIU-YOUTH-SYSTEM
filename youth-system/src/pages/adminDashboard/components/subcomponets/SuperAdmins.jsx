@@ -104,7 +104,7 @@ export default function SuperAdmins({
         <th className="px-3 py-2 text-center min-w-[120px]">Email</th>
         <th className="px-3 py-2 text-center min-w-[100px]">Phone</th>
         <th className="px-3 py-2 text-center min-w-[80px]">Role</th>
-        <th className="px-3 py-2 text-center min-w-[80px]">Status</th>
+        {/* <th className="px-3 py-2 text-center min-w-[80px]">Status</th> */}
         {userRole === "moderator" && (
           <>
             <th className="px-3 py-2 text-center min-w-[60px]">Edit</th>
@@ -134,11 +134,11 @@ export default function SuperAdmins({
             <td className="px-3 py-2 text-center">
               <span className="bg-blue-500 p-1 rounded text-white">{mod.role}</span>
             </td>
-            <td className="px-3 py-2 text-center">
+            {/* <td className="px-3 py-2 text-center">
               <span className={`px-2 py-1 rounded bg-green-400 border rounded border-yellow-430 ${ mod.status ? "text-white" : ""}`}>
                 {mod.status ? "Online" : "Offline"}
               </span>
-            </td>
+            </td> */}
             {userRole === "moderator" && (
               <>
                 {/* Edit Button */}
