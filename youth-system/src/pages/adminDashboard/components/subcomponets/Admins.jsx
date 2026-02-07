@@ -253,7 +253,7 @@ export default function Admins({
                                 <option value="user">user</option>
                                 <option value="admin">admin</option>
 
-                                {role === "moderator" && (
+                                { userRole === "moderator" && (
                                   <option value="moderator">moderator</option>
                                 )}
                               </select>

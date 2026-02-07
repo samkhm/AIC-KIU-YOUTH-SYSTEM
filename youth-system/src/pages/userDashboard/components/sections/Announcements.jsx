@@ -28,7 +28,7 @@ export default function Announcements() {
 
   return (
     <div className="p-5">
-      <div className="p-5 gap-5 border-l-3 rounded-t border-gray-500 border-t-1 flex flex-col items-center justify-center ">
+      <div className="p-5 gap-5 border-l-3 rounded-t border-gray-500/80 border-t-1 flex flex-col items-center justify-center ">
         <h3 className="border-b border-blue-200 p-2 w-1/2 flex justify-center">
           Announcements
         </h3>

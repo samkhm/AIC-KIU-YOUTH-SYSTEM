@@ -63,7 +63,7 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen flex justify-center px-4 py-8">
-      <div className="w-full max-w-2xl h-fit bg-white rounded-xl shadow-md p-6">
+      <div className="w-full max-w-2xl h-fit bg-white/80 rounded-xl shadow-md p-6">
       
         
         {/* Header */}

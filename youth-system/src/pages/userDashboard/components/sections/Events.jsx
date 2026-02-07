@@ -25,7 +25,7 @@ export default function Events() {
 
   return (
     <div className="p-5">
-      <div className="p-5 gap-5 border-l-2 border-t rounded-t border-gray-500 flex flex-col items-center">
+      <div className="p-5 gap-5 border-l-2 border-t rounded-t border-gray-500/80 flex flex-col items-center">
         <h3 className="border-b border-blue-200 p-2 w-1/2 text-center">
           Events
         </h3>

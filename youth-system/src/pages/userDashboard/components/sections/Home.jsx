@@ -4,7 +4,7 @@ import React from 'react'
 export default function Home() {
   return (
     <div className='flex flex-1 p-3 flex-col flex-wrap gap-5'>
-      <div className='flex flex-1 border-l-2 border-t-2 border-blue-500 p-5 rounded'>
+      <div className='flex flex-1 border-l-2 border-t-2 border-blue-400/80 p-5 rounded'>
         <h4 className='border-b-3 text-blue-500 p-2 h-fit w-full flex items-center justify-center'>My progress</h4>
         
       </div>

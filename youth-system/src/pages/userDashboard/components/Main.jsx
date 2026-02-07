@@ -36,7 +36,7 @@ export default function Main({ activeSection }) {
       content = <div>Select a section from sidebar</div>
   }
   return (
-    <div className='flex-1 bg-gray-100'>
+    <div className='flex-1 bg-gray-100/80'>
       <div>
         {content}
       </div>

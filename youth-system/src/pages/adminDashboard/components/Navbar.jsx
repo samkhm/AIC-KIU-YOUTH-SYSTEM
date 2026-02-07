@@ -36,8 +36,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="bg-blue-500 p-4 flex items-center justify-between shadow-md relative 
-    ">
+    <div
+      className="bg-blue-400/80 p-4 flex items-center justify-between relative 
+    "
+    >
       {/* Admin Name */}
       <p
         className="text-white text-2xl font-bold       
