@@ -70,7 +70,7 @@ export default function Sidebar({ activeSection, setActiveSection }) {
       <aside
         className={`
           
-          fixed left-0 max-h-full bg-blue-400/80 p-3 z-40 rounded-br
+          fixed left-0 max-h-full bg-blue-400/95 p-3 z-40 rounded-br
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0 lg:static lg:transform-none
