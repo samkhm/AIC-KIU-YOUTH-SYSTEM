@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { FaEdit, FaTrash, FaDownload, FaSave, FaTimes } from "react-icons/fa";
 import API from "@/service/api";
 import { TailSpin } from 'react-loader-spinner';
+import { getUserRole } from "@/utils/auth";
 
 export default function SingleDoc({ file, setFiles }) {
+  const userRole = getUserRole();
+
   const [mode, setMode] = useState("view");
   const [title, setTitle] = useState(file.title);
   const [newFile, setNewFile] = useState(null);
@@ -88,21 +91,29 @@ export default function SingleDoc({ file, setFiles }) {
             </a>
 
             {/* Delete */}
-            <button
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 flex items-center gap-1"
-              onClick={handleDelete}
-              disabled={loading}
-            >
-              {loadDel === file._id ? <TailSpin height={18} width={18} color="white"/> : <FaTrash />}
-            </button>
-
-            {/* Edit */}
-            <button
-              className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400 flex items-center gap-1"
-              onClick={() => setMode("edit")}
-            >
-              <FaEdit /> Edit
-            </button>
+            {
+              ( userRole === "admin" || userRole === "moderator") && (
+                <>
+                <button
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 flex items-center gap-1"
+                onClick={handleDelete}
+                disabled={loading}
+              >
+                {loadDel === file._id ? <TailSpin height={18} width={18} color="white"/> : <FaTrash />}
+              </button>
+  
+              
+              <button
+                className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400 flex items-center gap-1"
+                onClick={() => setMode("edit")}
+              >
+                <FaEdit /> Edit
+              </button>
+              </>
+              
+              )
+            }
+           
           </div>
         </>
       ) : (

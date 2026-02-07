@@ -27,12 +27,12 @@ export default function Announcements() {
   }, []);
 
   return (
-    <div className="p-5 animate__animated animate__zoomIn animate__delay-1s">
+    <div className="p-5">
       <div className="p-5 gap-5 border-l-3 rounded-t border-gray-500 border-t-1 flex flex-col items-center justify-center ">
         <h3 className="border-b border-blue-200 p-2 w-1/2 flex justify-center">
           Announcements
         </h3>
-        <div className="p-3 flex flex-1 w-full items-center gap-5 flex-wrap animate__animated animate__zoomIn animate__delay-2s">
+        <div className="p-3 flex flex-1 w-full items-center gap-5 flex-wrap animate__animated animate__zoomIn animate__delay-1s">
           {loading ? (
             <div className="w-full flex items-center justify-center">
               <CircularProgress/>

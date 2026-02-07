@@ -90,7 +90,7 @@ export default function adminBoard() {
 
 
   return (
-    <div className='flex flex-col min-h-screen max-w-screen animate__animated animate__zoomIn animate__delay-1s'>
+    <div className='flex flex-col min-h-screen max-w-screen'>
 
       <Navbar />
       <div className='flex flex-row flex-1 min-h-0'>

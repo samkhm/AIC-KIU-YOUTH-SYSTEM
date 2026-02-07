@@ -168,13 +168,13 @@ import {
             {imagePreviews.length > 0 && (
               <div className="mt-2">
                 <p className="text-sm text-gray-500 mb-1">Preview</p>
-                <div className="flex flex-col gap-2 max-h-64 overflow-y-auto p-1 border rounded">
+                <div className="flex flex-wrap items-center justify-center gap-2 max-h-64 overflow-y-auto p-1 border rounded">
                   {imagePreviews.map((url, idx) => (
                     <img
                       key={idx}
                       src={url}
                       alt={`Preview ${idx + 1}`}
-                      className="w-full h-40 object-cover rounded border"
+                      className="w-40 h-40 object-cover rounded border"
                     />
                   ))}
                 </div>

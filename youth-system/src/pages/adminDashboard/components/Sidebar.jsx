@@ -23,8 +23,6 @@ export default function Sidebar({ activeSection, setActiveSection }) {
       [name]: !prev[name],
     }));
   };
-  
- 
 
   const menuItems = [
     { id: "home", name: "Home", icon: <IoHomeOutline /> },
@@ -34,11 +32,11 @@ export default function Sidebar({ activeSection, setActiveSection }) {
     { id: "projects", name: "Projects", icon: <IoDocumentTextOutline /> },
     //this is adrop down
     {
-      name : "Finance",
+      name: "Finance",
       icon: <IoCashOutline />,
-      children : [
+      children: [
         { id: "pay", name: "My Pay", icon: <IoCashOutline /> },
-        { id: "finance", name: "Finance", icon: <IoCashOutline /> }
+        { id: "finance", name: "Finance", icon: <IoCashOutline /> },
       ],
     },
     //this is a drop down menu
@@ -59,18 +57,19 @@ export default function Sidebar({ activeSection, setActiveSection }) {
       {/* Open Button (Mobile & Tablet) */}
       {!open && (
         <label
-        onClick={() => setOpen(true)}
-        className="fixed top-20 left-3 z-50 cursor-pointer lg:hidden 
+          onClick={() => setOpen(true)}
+          className="fixed top-20 left-3 z-50 cursor-pointer lg:hidden 
         border-2 border-white rounded bg-green-500 text-white p-1 bold
         animate__animated animate__tada animate__infinite animate__slower"
-        >Menu</label>
-        
+        >
+          Menu
+        </label>
       )}
 
       {/* Sidebar */}
       <aside
         className={`
-          animate__animated animate__zoomIn animate__delay-1s
+          
           fixed left-0 max-h-full bg-blue-400 p-3 z-40
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
@@ -90,14 +89,14 @@ export default function Sidebar({ activeSection, setActiveSection }) {
           {menuItems.map((item) => {
             // DROPDOWN ITEM
             if (item.children) {
-
               const isOpen = openDropdowns[item.name];
 
               return (
                 <div key={item.name}>
                   <div
                     onClick={() => toggleDropdown(item.name)}
-                    className="flex items-center gap-3 p-2 rounded cursor-pointer hover:bg-gray-300"
+                    className="flex items-center gap-3 p-2 
+                    rounded cursor-pointer hover:bg-gray-300"
                   >
                     {item.icon}
                     <span>{item.name}</span>
@@ -112,7 +111,9 @@ export default function Sidebar({ activeSection, setActiveSection }) {
                             setActiveSection(child.id);
                             setOpen(false);
                           }}
-                          className={`flex items-center gap-3 p-2 rounded cursor-pointer hover:bg-gray-200
+                          className={`flex items-center gap-3 
+                            p-2 rounded cursor-pointer 
+                            hover:bg-gray-200
                     ${activeSection === child.id ? "bg-gray-200" : ""}`}
                         >
                           {child.icon}

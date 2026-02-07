@@ -24,13 +24,13 @@ export default function Events() {
   }, [])
 
   return (
-    <div className="p-5 animate__animated animate__zoomIn animate__delay-1s">
+    <div className="p-5">
       <div className="p-5 gap-5 border-l-2 border-t rounded-t border-gray-500 flex flex-col items-center">
         <h3 className="border-b border-blue-200 p-2 w-1/2 text-center">
           Events
         </h3>
 
-        <div className="p-3 w-full flex gap-5 flex-wrap animate__animated animate__zoomIn animate__delay-2s">
+        <div className="p-3 w-full flex gap-5 flex-wrap animate__animated animate__zoomIn animate__delay-1s">
           {loading && 
           <div className="w-full flex items-center justify-center">
           <CircularProgress/>

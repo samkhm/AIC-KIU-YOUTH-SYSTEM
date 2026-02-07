@@ -174,14 +174,14 @@ export default function Finance() {
 
   /* ================= UI ================= */
   return (
-    <div className="border-l-2 rounded m-5 p-5 h-screen flex flex-col animate__animated animate__zoomIn animate__delay-1s">
+    <div className="border-l-2 rounded m-5 p-5 h-screen flex flex-col ">
       {/* Header */}
       <div className="flex items-center justify-between border-b p-3 sticky top-0 bg-white z-10">
         <h3 className="text-xl font-semibold">Finance</h3>
       </div>
 
       {/* Project selector */}
-      <div className="flex justify-center mt-4 animate__animated animate__zoomIn animate__delay-2s">
+      <div className="flex justify-center mt-4 animate__animated animate__zoomIn animate__delay-1s">
         <select
           value={selectedProjectId}
           onChange={(e) => setSelectedProjectId(e.target.value)}
@@ -197,7 +197,7 @@ export default function Finance() {
       </div>
 
       {!selectedProjectId && (
-        <p className="text-center mt-6 text-gray-500 animate__animated animate__zoomIn animate__delay-2s">
+        <p className="text-center mt-6 text-gray-500 ">
           Select a project to view finance details
         </p>
       )}
@@ -205,7 +205,7 @@ export default function Finance() {
       {selectedProjectId && (
         <>
           {/* ===== PRINT & DOWNLOAD BUTTONS ===== */}
-          <div className="flex gap-3 mt-4 justify-center flex-wrap animate__animated animate__zoomIn animate__delay-2s">
+          <div className="flex gap-3 mt-4 justify-center flex-wrap ">
             {/* Print buttons → desktop/tablet */}
             <button
               onClick={() => printSection('print-summary')}
@@ -240,7 +240,7 @@ export default function Finance() {
           {/* ===== TABLE 1: SUMMARY ===== */}
           <div
             id="print-summary"
-            className="w-full mt-6 overflow-x-auto p-4 flex flex-col border-b-4 animate__animated animate__zoomIn animate__delay-2s"
+            className="w-full mt-6 overflow-x-auto p-4 flex flex-col border-b-4 "
           >
             <h2>Project Contributions Summary</h2>
             <p>
@@ -292,7 +292,7 @@ export default function Finance() {
           {/* ===== TABLE 2: TRANSACTIONS ===== */}
           <div
             id="print-transactions"
-            className="w-full mt-8 overflow-x-auto p-4 flex flex-col animate__animated animate__zoomIn animate__delay-2s"
+            className="w-full mt-8 overflow-x-auto p-4 flex flex-col "
           >
             <h2>Project Transactions</h2>
             <p>

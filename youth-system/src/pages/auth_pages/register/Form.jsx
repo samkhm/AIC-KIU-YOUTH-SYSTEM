@@ -34,66 +34,67 @@ export default function Form({
   const [showPassC, setShowPassC] = useState(false);
   return (
     <Box>
-      <div className="w-full max-w-lg mx-auto px-2">
+      <div className="w-full max-w-lg mx-auto px-2 ">
         <form
           onSubmit={onSubmit}
           onClick={() => setMessage("")}
-          className="flex flex-col bg-white/80 backdrop-blur p-4 sm:p-6 rounded-lg gap-4 shadow-md animate__animated animate__zoomIn animate__delay-2s"
+          className="flex flex-col bg-white/80 backdrop-blur p-4 sm:p-6 rounded-lg gap-4 shadow-md 
+          "
         >
          
 
           {/* First & Last Name */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="text-sm font-medium animate__animated animate__zoomIn animate__delay-2s">First Name</label>
+              <label className="text-sm font-medium ">First Name</label>
               <input
                 type="text"
-                className="border rounded p-2 w-full text-sm animate__animated animate__zoomIn animate__delay-2s"
+                className="border rounded p-2 w-full text-sm "
                 value={fname}
                 onChange={(e) => {
                   setFname(e.target.value);
                   if (errors.fname) setErrors((p) => ({ ...p, fname: "" }));
                 }}
               />
-              <p className="text-xs text-red-500 animate__animated animate__zoomIn animate__delay-2s">{errors.fname}</p>
+              <p className="text-xs text-red-500 ">{errors.fname}</p>
             </div>
 
             <div>
-              <label className="text-sm font-medium animate__animated animate__zoomIn animate__delay-2s">Last Name</label>
+              <label className="text-sm font-medium ">Last Name</label>
               <input
                 type="text"
-                className="border rounded p-2 w-full text-sm animate__animated animate__zoomIn animate__delay-2s"
+                className="border rounded p-2 w-full text-sm "
                 value={lname}
                 onChange={(e) => {
                   setLname(e.target.value);
                   if (errors.lname) setErrors((p) => ({ ...p, lname: "" }));
                 }}
               />
-              <p className="text-xs text-red-500 animate__animated animate__zoomIn animate__delay-2s">{errors.lname}</p>
+              <p className="text-xs text-red-500 ">{errors.lname}</p>
             </div>
           </div>
 
           {/* Email */}
           <div>
-            <label className="text-sm font-medium animate__animated animate__zoomIn animate__delay-2s">Email</label>
+            <label className="text-sm font-medium ">Email</label>
             <input
               type="email"
-              className="border rounded p-2 w-full text-sm animate__animated animate__zoomIn animate__delay-2s"
+              className="border rounded p-2 w-full text-sm "
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
                 if (errors.email) setErrors((p) => ({ ...p, email: "" }));
               }}
             />
-            <p className="text-xs text-red-500 animate__animated animate__zoomIn animate__delay-2s">{errors.email}</p>
+            <p className="text-xs text-red-500 ">{errors.email}</p>
           </div>
 
           {/* Phone */}
           <div>
-            <label className="text-sm font-medium animate__animated animate__zoomIn animate__delay-2s">Phone</label>
+            <label className="text-sm font-medium ">Phone</label>
             <input
               type="text"
-              className="border rounded p-2 w-full text-sm animate__animated animate__zoomIn animate__delay-2s  "
+              className="border rounded p-2 w-full text-sm "
               value={phone}
               onChange={(e) => {
                 setPhone(e.target.value);

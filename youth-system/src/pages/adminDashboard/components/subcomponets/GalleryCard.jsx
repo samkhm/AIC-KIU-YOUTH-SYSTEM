@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { FaTrash, FaDownload } from "react-icons/fa";
+import { FaTrash, FaDownload, FaSpinner } from "react-icons/fa";
 import API from "@/service/api";
+import { getUserRole } from "@/utils/auth";
 
 export default function GalleryCard({ gallery, setGallery }) {
+  const userRole = getUserRole();
+
   const [deletingImage, setDeletingImage] = useState("");
   const [deletingGallery, setDeletingGallery] = useState("");
   const [downloading, setDownloading] = useState(""); // track image downloading
@@ -75,18 +78,25 @@ export default function GalleryCard({ gallery, setGallery }) {
           <h3 className="font-semibold">{gallery.title}</h3>
           <p className="text-sm text-gray-500">Created on: {formattedDate}</p>
         </div>
-        <button
-          onClick={handleDeleteGallery}
-          disabled={deletingGallery}
-          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-        >
-          {deletingGallery ? "Deleting..." : "Delete Gallery"}
-        </button>
+        {
+          ( userRole === "admin" || userRole === "moderator") && (
+            <button
+            onClick={handleDeleteGallery}
+            disabled={deletingGallery}
+            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+          >
+            {deletingGallery ? "Deleting..." : "Delete Gallery"}
+          </button>
+          )
+        }
+
+       
+
       </div>
 
-      <div className="flex flex-col gap-2 max-h-96 overflow-y-auto">
+      <div className="flex flex-wrap items-center justify-center gap-2 max-h-96 overflow-y-auto">
         {gallery.images.map((img) => (
-          <div key={img.id} className="relative">
+          <div key={img.id} className="relative w-40">
             <img
               src={img.url}
               alt={gallery.title}
@@ -94,13 +104,19 @@ export default function GalleryCard({ gallery, setGallery }) {
             />
 
             {/* Delete Button */}
-            <button
+            {
+              (userRole === "admin" || userRole === "moderator") && (
+                <button
               onClick={() => handleDeleteImage(img.id)}
               disabled={deletingImage === img.id}
               className="absolute top-2 right-10 bg-red-500 text-white p-1 rounded hover:bg-red-600"
             >
-              <FaTrash />
+              { deletingImage ? <FaSpinner height={15} width={15}/> : <FaTrash />}
+              
             </button>
+              )
+            }
+            
 
             {/* Download Button */}
             <button

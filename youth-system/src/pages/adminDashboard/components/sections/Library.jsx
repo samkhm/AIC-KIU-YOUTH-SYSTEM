@@ -4,8 +4,10 @@ import { useState } from 'react'
 import API from '@/service/api'
 import { useEffect } from 'react'
 import SingleDoc from '../subcomponets/SingleDoc'
+import { getUserRole } from '@/utils/auth'
 
 export default function Library() {
+  const userRole = getUserRole();
     const [files, setFiles] = useState([])
     const [loading, setLoading] = useState(false)
 
@@ -27,14 +29,19 @@ export default function Library() {
     // console.log("Files: ", files)
 
   return (
-    <div className="border-l-2 rounded m-5 p-5 h-screen flex flex-col animate__animated animate__zoomIn animate__delay-1s">
+    <div className="border-l-2 rounded m-5 p-5 h-screen flex flex-col ">
     {/* Header */}
       <div className="flex items-center justify-between gap-5 border-b border-gray-200 p-3 sticky top-0 bg-white z-10">
         <h3 className="text-xl font-semibold">Library</h3>
-        <LibraryDialog setFiles={setFiles}/>        
+        {
+          ( userRole === "admin" || userRole === "moderator") && (
+            <LibraryDialog setFiles={setFiles}/>        
+          )
+        }
+
       </div>
 
-      <div className='w-full animate__animated animate__zoomIn animate__dalay-2s
+      <div className='w-full animate__animated animate__zoomIn animate__dalay-1s
       overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200'>
 
         {

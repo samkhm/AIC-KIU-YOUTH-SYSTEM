@@ -18,7 +18,7 @@ export default function Form({
           onSubmit={onSubmit}
           onClick={() => setMessage('')}
           className="flex flex-col backdrop-blur p-4 sm:p-6 rounded-lg gap-4 shadow-md
-          animate__animated animate__zoomIn animate__delay-2s
+         
           "
         >
           {/* Message */}
@@ -38,10 +38,10 @@ export default function Form({
   
           {/* Identifier */}
           <div>
-            <label className="text-sm font-medium animate__animated animate__zoomIn animate__delay-2s">Email or Username</label>
+            <label className="text-sm font-medium ">Email or Username</label>
             <input
               type="text"
-              className="border rounded p-2 w-full text-sm animate__animated animate__zoomIn animate__delay-2s"
+              className="border rounded p-2 w-full text-sm "
               placeholder="Enter email or username"
               value={identifier}
               onChange={(e) => {
@@ -50,17 +50,17 @@ export default function Form({
                   setErrors((p) => ({ ...p, identifier: '' }))
               }}
             />
-            <p className="text-xs text-red-500 animate__animated animate__zoomIn animate__delay-2s">{errors.identifier}</p>
+            <p className="text-xs text-red-500">{errors.identifier}</p>
           </div>
   
           {/* Password */}
           <div className="flex flex-col w-full">
-            <label className="text-sm font-medium mb-1 animate__animated animate__zoomIn animate__delay-2s">Password</label>
+            <label className="text-sm font-medium mb-1 ">Password</label>
 
                 <div className="relative w-full">
                   <input
                     type={showPass ? "text" : "password"}
-                    className="border rounded p-2 w-full text-sm pr-10 animate__animated animate__zoomIn animate__delay-2s" // add right padding for the button
+                    className="border rounded p-2 w-full text-sm pr-10 " // add right padding for the button
                     placeholder="Password"
                     value={password}
                     onChange={(e) => {
@@ -72,24 +72,24 @@ export default function Form({
                   <button
                     type="button"
                     onClick={() => setShowPass(!showPass)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 animate__animated animate__zoomIn animate__delay-2s"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 "
                   >
                     {showPass ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
 
-                <p className="text-xs text-red-500 mt-1 animate__animated animate__zoomIn animate__delay-2s">{errors.password}</p>
+                <p className="text-xs text-red-500 mt-1 ">{errors.password}</p>
               </div>
 
   
           {/* Footer */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-            <p className="text-xs text-center sm:text-left animate__animated animate__zoomIn animate__delay-2s">
+            <p className="text-xs text-center sm:text-left animate__animated animate__zoomIn animate__delay-1s">
               Not yet registered?{' '}
               <button
   type="button"
   onClick={switchToRegister}
-  className="text-blue-500 underline font-medium animate__animated animate__zoomIn animate__delay-2s"
+  className="text-blue-500 underline font-medium animate__animated animate__zoomIn animate__delay-1s"
 >
   Register
 </button>
@@ -98,12 +98,12 @@ export default function Form({
             <button
               type="submit"
               disabled={loading}
-              className="w-full sm:w-40 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded transition animate__animated animate__zoomIn animate__delay-2s"
+              className="w-full sm:w-40 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded transition animate__animated animate__zoomIn animate__delay-1s"
             >
               {loading ? 'Please wait...' : 'Log In'}
             </button>
           </div>
-          <p className='text-xs text-center sm:text-left animate__animated animate__zoomIn animate__delay-2s'>
+          <p className='text-xs text-center sm:text-left animate__animated animate__zoomIn animate__delay-1s'>
             <a href="/cornfirm_password" className='text-blue-500 underline'>Reset password</a>
           </p>
         </form>

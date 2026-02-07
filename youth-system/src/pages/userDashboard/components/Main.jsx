@@ -3,8 +3,9 @@ import Home from './sections/Home';
 import Announcements from './sections/Announcements';
 import Events from './sections/Events';
 import Projects from './sections/Projects';
-import Gallery from './sections/Gallery';
+import Gallery from '@/pages/adminDashboard/components/sections/Gallery';
 import Profile from './sections/Profile';
+import Library from '@/pages/adminDashboard/components/sections/Library';
 
 
 export default function Main({ activeSection }) {
@@ -25,6 +26,9 @@ export default function Main({ activeSection }) {
     case 'gallery' :
       content = <div> <Gallery/> </div>
       break;    
+    case 'library' :
+      content = <div> <Library/> </div>
+      break;
     case 'profile':
       content = <div> <Profile /> </div>
       break;

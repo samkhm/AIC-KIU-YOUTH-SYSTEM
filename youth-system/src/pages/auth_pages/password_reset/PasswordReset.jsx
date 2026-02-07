@@ -99,11 +99,11 @@ export default function PasswordReset() {
         <div className="absolute inset-0 z-10 flex items-center justify-center px-4
         animate__animated animate__zoomIn animate__delay-1s
         ">
-          <div className="flex flex-col gap-4 items-center w-full max-w-lg animate__animated animate__zoomIn animate__delay-2s">
+          <div className="flex flex-col gap-4 items-center w-full max-w-lg ">
             {/* Header */}
-            <div className="bg-white/60 p-4 rounded w-full text-center border-b-4 border-blue-500 animate__animated animate__zoomIn animate__delay-2s">
-              <h3 className="text-2xl font-semibold animate__animated animate__zoomIn animate__delay-2s">Reset Password</h3>
-              <span className="text-sm text-gray-700 animate__animated animate__zoomIn animate__delay-2s">
+            <div className="bg-white/60 p-4 rounded w-full text-center border-b-4 border-blue-500 ">
+              <h3 className="text-2xl font-semibold ">Reset Password</h3>
+              <span className="text-sm text-gray-700 ">
                 To login to AIC Kiu Youth System
               </span>
 

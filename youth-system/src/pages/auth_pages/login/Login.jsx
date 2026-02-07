@@ -97,7 +97,7 @@ export default function Login({ switchToRegister }) {
           <div className="flex flex-col gap-4 items-center w-full max-w-lg  animate__animated animate__zoomIn animate__delay-1s">
             {/* Header */}
             <div className="bg-white/60 p-4 rounded w-full text-center border-b-4 border-blue-500
-            animate__animated animate__zoomIn animate__delay-2s
+            animate__animated animate__zoomIn animate__delay-1s
             ">
               <h3 className="text-2xl font-semibold animate__animated animate__zoomIn animate__delay-2s">Login</h3>
               <span className="text-sm text-gray-700 animate__animated animate__zoomIn animate__delay-2s">
