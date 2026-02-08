@@ -31,7 +31,8 @@ export default function Navbar() {
     setShowConfirm(false)
     window.location.href = '/login'
 
-    logOutDb();
+    //we be used later for status
+    // logOutDb();
   }
 
   useEffect(() => {
