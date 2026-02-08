@@ -30,8 +30,10 @@ export default function AnnouncementItem({ announcement }) {
       </DialogTrigger>
 
       <DialogContent>
+      <div className="max-h-64  overflow-y-auto">
         <div
           className="
+          
             p-5
             border border-l-4 border-t-2
             rounded
@@ -42,6 +44,8 @@ export default function AnnouncementItem({ announcement }) {
         >
           {content}
         </div>
+        </div>
+
 
         <DialogClose className="border rounded px-3 py-1 cursor-pointer hover:border-red-200">
           Close
