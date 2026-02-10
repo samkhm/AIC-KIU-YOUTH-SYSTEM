@@ -1,91 +1,99 @@
-import React from 'react'
-import Box from "../subcomponets/Box"
-import { FaTrash, FaEdit } from 'react-icons/fa'
-import { TailSpin } from 'react-loader-spinner'
-import { useState } from 'react'
-import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import API from '@/service/api'
+import React from "react";
+import Box from "../subcomponets/Box";
+import { FaTrash, FaEdit } from "react-icons/fa";
+import { TailSpin } from "react-loader-spinner";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import API from "@/service/api";
 
 export default function Announcement({ news, deleteNews, delLoader, setNews }) {
+  const [selectedNews, setSelectedNews] = useState(null);
 
-  const [selectedNews, setSelectedNews] = useState(null)
+  const [data, setData] = useState("");
 
-  const [data, setData] = useState("")
-
-  const [message, setMessage] = useState("")
-  const [messageType, setMessageType] = useState("")
-  const [upLoader, setUpLoader] = useState(false)
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [upLoader, setUpLoader] = useState(false);
 
   const updateData = async (id, payload) => {
-    setUpLoader(true)
+    setUpLoader(true);
     try {
-
-      const res = await API.put(`/tasks/updateAnnouncement/${id}`, payload)
+      const res = await API.put(`/tasks/updateAnnouncement/${id}`, payload);
       const updatedData = res.data?.announcement || res.data;
-      setNews(prev => prev.map(n => n._id === id ? { ...n, ...updatedData } : n))
+      setNews((prev) =>
+        prev.map((n) => (n._id === id ? { ...n, ...updatedData } : n)),
+      );
 
-      setMessage("Updated successfully!")
-      setMessageType("success")
+      setMessage("Updated successfully!");
+      setMessageType("success");
 
       setTimeout(() => {
-        setMessage("")
-        setMessageType("")
-      }, 3000)
-
+        setMessage("");
+        setMessageType("");
+      }, 3000);
     } catch (error) {
-      setMessage("Update failed")
-      setMessageType("error")
+      setMessage("Update failed");
+      setMessageType("error");
       setTimeout(() => {
-        setMessage("")
-        setMessageType("")
-      }, 3000)
+        setMessage("");
+        setMessageType("");
+      }, 3000);
     } finally {
-      setUpLoader(false)
-
+      setUpLoader(false);
     }
-  }
+  };
 
   const openEditDialog = (news) => {
-    setSelectedNews(news)
-    setData(news.data)
-    setMessage("")
-    setMessageType("")
-  }
+    setSelectedNews(news);
+    setData(news.data);
+    setMessage("");
+    setMessageType("");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const payload = {
-      data: data
-    }
+      data: data,
+    };
 
     try {
-      updateData(selectedNews._id, payload)
+      updateData(selectedNews._id, payload);
       // setData("")
-
     } catch (error) {
-      setMessage("Failed to update")
-      setMessageType("error")
+      setMessage("Failed to update");
+      setMessageType("error");
     }
-  }
+  };
 
   const clearMessages = () => {
-    setMessage("")
-    setMessageType("")
-  }
+    setMessage("");
+    setMessageType("");
+  };
 
   return (
     <>
-
       <Box>
-        <p>{news.data || "No content"}</p>
-        <div className='flex flex-wrap flex-row gap-5 items-center justify-evenly'>
+        <div className="max-h-64 overflow-y-auto">
+          <p>{news.data || "No content"}</p>
+        </div>
 
-          <div className='w-fit'>
+        <div className="flex flex-wrap flex-row gap-5 items-center justify-evenly">
+          <div className="w-fit">
             <Dialog>
               <DialogTrigger asChild>
-                <FaEdit color='green' cursor='pointer'
-                  onClick={() => openEditDialog(news)} />
+                <FaEdit
+                  color="green"
+                  cursor="pointer"
+                  onClick={() => openEditDialog(news)}
+                />
               </DialogTrigger>
 
               <DialogContent className="flex flex-col w-full max-w-md bg-white rounded-lg shadow-lg p-6 space-y-4">
@@ -95,21 +103,28 @@ export default function Announcement({ news, deleteNews, delLoader, setNews }) {
                   </DialogTitle>
                 </DialogHeader>
 
-
                 {message && (
-                  <p className={`text-sm italic ${messageType === "success" ? "text-green-500" : "text-red-500"
-                    }`}>
+                  <p
+                    className={`text-sm italic ${
+                      messageType === "success"
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                  >
                     {message}
                   </p>
                 )}
 
-                <form onSubmit={handleSubmit} className="flex flex-col space-y-3">
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col space-y-3"
+                >
                   <textarea
                     rows={6}
                     value={data}
                     onChange={(e) => {
-                      setData(e.target.value)
-                      clearMessages()
+                      setData(e.target.value);
+                      clearMessages();
                     }}
                     placeholder="Enter announcement here..."
                     className="w-full border border-gray-300 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -133,7 +148,6 @@ export default function Announcement({ news, deleteNews, delLoader, setNews }) {
             </Dialog>
           </div>
 
-
           {delLoader === news._id ? (
             <TailSpin height={15} width={15} ariaLabel="loading" />
           ) : (
@@ -145,7 +159,6 @@ export default function Announcement({ news, deleteNews, delLoader, setNews }) {
           )}
         </div>
       </Box>
-
     </>
-  )
+  );
 }
